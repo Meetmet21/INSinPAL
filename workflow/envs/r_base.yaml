@@ -1,0 +1,9 @@
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+
+dependencies:
+  - r-base=4.3.3
+  - r-essentials=4.3
+  - r-dplyr=1.1.4

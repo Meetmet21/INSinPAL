@@ -1,0 +1,29 @@
+cluster:
+  bsub
+    -M {resources.mem_mb}000 -n {threads}
+    -R 'rusage[mem={resources.mem_mb}] span[ptile={threads}]'
+    -o logs/lsf.out
+    -e logs/lsf.err
+    -J {rule}
+    -q {resources.queue}
+cluster-status: "lsf-status.py"
+latency-wait: 60
+
+scheduler: greedy
+use-conda: True
+use-singularity: False
+printshellcmds: True
+restart-times: 0
+jobs: 40
+local-cores: 1
+max-jobs-per-second: 3
+max-status-checks-per-second: 5
+keep-going: True
+rerun-incomplete: True
+default-resources:
+  - mem_mb=16000
+  - queue=normal
+cores: 40
+rerun-triggers: mtime
+
+

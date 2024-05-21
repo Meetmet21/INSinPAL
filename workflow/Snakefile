@@ -1,0 +1,61 @@
+"""
+:Author: Mehmet Sehir
+:Date: 14.05.2024
+
+Main snakemake file to call Insertions within WGS data in unstable palindromic regions.
+
+Modify the config/config.yaml to add new sample:
+samples:
+    sample_id: sample_path_to_BAM (index in the same directory)
+
+This Snakemake pipeline only run one sample at the time.
+"""
+
+# MODULES
+import sys
+from os.path import join
+
+# MIN SNAKEMAKE
+from snakemake.utils import min_version
+
+min_version("7.32")
+
+# PARAMETER FILE
+sys.path.append("config/")
+import parameters
+
+# Path to pipeline main directory directories
+paths = parameters.WorkFlowPaths()
+
+# CONFIG FILE
+configfile: join(paths.config, "config.yaml")
+
+# Local rule
+localrules: all
+
+# TARGET RULE
+# Generate main final file -> {sample}.xlsx which is an excel file containing filtered INS calls with annotations.
+rule all:
+    input:
+        expand(join(paths.results, "{sample}/{sample}.xlsx"),
+            sample=config["samples"])
+    default_target: True
+
+# MODULAR RULES in order of execution within the workflow.
+# Format the input BAM for INSurVeyor caller.
+include: join(paths.rules, "bam_to_fixmate_sort.smk")
+# Call insertions with different callers.
+include: join(paths.rules, "call_INS_SVs.smk")
+# Mine palindromes within the hg19 ref genome and select the recombinogenic ones.
+# Data in resources folder to keep to avoid rule running for all samples.
+include: join(paths.rules, "mine_palindromes_in_genome.smk")
+# Annotation and formatting of resulting vcf files from callers.
+include: join(paths.rules, "format_calls_and_filter.smk")
+# Second step of annotations with merging different callers output.
+# Producing the final excel file.
+include: join(paths.rules, "Merge_callers_and_annotate.smk")
+
+onsuccess:
+    print("The pipeline was fully completed.")
+onerror:
+    print("An error occurred.")
