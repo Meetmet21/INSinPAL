@@ -6,20 +6,20 @@ INSinPAL User Guide
 [//]:
 
 * [Introduction](#Introduction)
-* [Palindromic fragile sites](#Palidromicfragilesites)
-  * [Palindrome mining algorithm](#Palindromeminingalgorithm)
-  * [Filtering step](#Filteringstep)
-  " [Interesting sites](#Interestingsites)
-* [SV callers](#Svcallers)
-  * [INSurVeyor](#Insurveyor)
+* [Palindromic fragile sites](#Palidromic-fragile-sites)
+  * [Palindrome mining algorithm](#Palindrome-mining-algorithm)
+  * [Filtering step](#Filtering-step)
+  * [Interesting sites](#Interesting-sites)
+* [SV callers](#SV-callers)
+  * [INSurVeyor](#INSurVeyor)
   * [Manta](#Manta)
   * [Basil](#Basil)
   * [Benchmarking](#Benchmarking)
 * [Annotations](#Annotations)
-  * [MEIs annotation](#MEIs annotation)
-  * [Source of inserted sequence](#Sourceofinsertedsequence)
-  * [Length of inserted sequence](#Lengthofinsertedsequence)
-  * [Functionnal annotations](#Functionalannotations)
+  * [MEIs annotation](#MEIs-annotation)
+  * [Source of inserted sequence](#Source-of-inserted-sequence)
+  * [Length of inserted sequence](#Length-of-inserted-sequence)
+  * [Functionnal annotations](#Functional-annotations)
 * [Installation](#Installation)  
 * [Execution](#Execution)
 
@@ -46,6 +46,7 @@ INSinPAL User Guide
 
 ### Basil
 
+### Benchmarking
 
 ## Annotations
 
