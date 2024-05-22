@@ -109,7 +109,7 @@ class WorkFlowPaths:
 
     def __init__(self):
         # Root directory of INSinPAL pipeline.
-        self.main = dirname(abspath(__file__))
+        self.main = abspath(join(dirname(_file__), ".."))
         # Results folder
         self.results = join(self.main, "results")
         # Resources folder
