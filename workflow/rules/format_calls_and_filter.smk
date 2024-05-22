@@ -20,7 +20,7 @@ import parameters
 paths = parameters.WorkFlowPaths()
 
 localrules: meis_to_bed, vcf_to_bed, annotate_MEIS_part1, annotate_MEIS_part2, INS_in_pal_regions, annotate_source_INS
-.
+
 rule meis_to_bed:
     """
     Extract from SCRAMble final result only interesting fields which are in this case:

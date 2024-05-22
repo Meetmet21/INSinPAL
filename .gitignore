@@ -1,0 +1,35 @@
+# .gitkeep files allows to push empty folders to conserv snakmake project structure
+
+# Ignore log directory containing lsf logs and sample specific run logs
+logs/*
+workflow/logs/*
+
+# Ignore snakemake hidden directories and tmp files
+.snakemake/
+
+# Ignore all data type files as BED, BAM, TXT or VCF
+*.bed
+*.bam
+*.txt
+*.vcf
+*.vcf.gz
+
+# Ignore all files within result and resource folder
+results/*
+resources/*
+
+# Task realted script files
+check_for_new_bam.sh
+launch_analysis.sh
+
+# IDLE related config files
+.idea/
+
+# Python cache directories
+__pycache__/
+
+# Empty folders to keep
+!logs/dry_runs/.gitkeep
+!results/.gitkeep
+!workflow/logs/.gitkeep
+!resources/.gitkeep
