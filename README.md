@@ -16,7 +16,9 @@ INSinPAL Snakemake workflow will proceed as following:
  - Format VCFs to BEDs and annotate for MEIs, putative inserted sequences source and size.
  - An additional step for BAM formatting exists if mate score tags are absent, needed for INSurVeyo caller.
 
-See ![ DAG of jobs](./doc/dag.pdf) or read the [user guide](./doc/user_guide.md).
+### Documentation
+
+See ![DAG of jobs](./doc/dag.pdf) for workflow rules structure and/or read the [user guide](./doc/user_guide.md) detailed information about the workflow as setup steps, biological concepts, etc...
  
 
 
