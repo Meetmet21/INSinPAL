@@ -6,7 +6,7 @@ INSinPAL User Guide
 [//]:
 
 * [Introduction](#Introduction)
-* [Palindromic fragile sites](#Palidromic-fragile-sites)
+* [Palindromic fragile sites](#Palindromic-fragile-sites)
   * [Palindrome mining algorithm](#Palindrome-mining-algorithm)
   * [Filtering step](#Filtering-step)
   * [Interesting sites](#Interesting-sites)
@@ -19,7 +19,7 @@ INSinPAL User Guide
   * [MEIs annotation](#MEIs-annotation)
   * [Source of inserted sequence](#Source-of-inserted-sequence)
   * [Length of inserted sequence](#Length-of-inserted-sequence)
-  * [Functionnal annotations](#Functional-annotations)
+  * [Functionnal annotations](#Functionnal-annotations)
 * [Installation](#Installation)  
 * [Execution](#Execution)
 
