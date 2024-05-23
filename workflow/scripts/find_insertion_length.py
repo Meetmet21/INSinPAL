@@ -140,7 +140,7 @@ for index, bp in bed.iterrows():
                 # which corresponds to the boundaries of the insertion close to breakpoint.
                 # Add + 100 because Forward mate position is based on the left most nucleotide, to take in account, the
                 # discordant mate length is around 100 bp.
-                bed.loc[index, "len"] = max(cleared_forward) - min(cleared_reverse) + 100
+                bed.loc[index, "len"] = abs(max(cleared_forward) - min(cleared_reverse) + 100)
             # Not enough supporting data
             else:
                 continue
