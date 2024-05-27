@@ -67,6 +67,25 @@ FOR each central_position_of_a_potential_palindrome in all_positions_in_ref:
   ENDIF
 ```
 
+Note that, based on the literature, a pre-filtering of extracted palindromes si done. The main criteria are:
+
+* A minimum length for the seed palindrome fixed to 8 nucleotides.
+* An identity of at leaste 85% between both stems.
+* A maximum spacer length fixed to 20 nucleotides.
+
+These values can be modified by user but they have a biological relevance ([*Wang and al.*]((https://www.sciencedirect.com/science/article/pii/S0014579306000986))).
+
+The output BED file contians the following fields:
+
+* Chromosome name.
+* Start in reference genome (0 based).
+* Stop in reference genome.
+* Palindrome type: Perfect or Near (less than 100% identity or Spacer).
+* Palindrome length with spacer.
+* Spacer sequence length.
+* Mismatch rate in %.
+* AT percentage in palindrome.
+
 ### Filtering step
 
 ### Interesting sites
