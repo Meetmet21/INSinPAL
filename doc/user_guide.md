@@ -89,10 +89,18 @@ The output BED file contians the following fields:
 
 ### Filtering step
 
-From the paper [*long inverted repeats in eukaryotic genomes: Recombinogenic motifs determine genomic plasticity*](https://www.sciencedirect.com/science/article/pii/S0014579306000986), the following formule was used to select putative unstable palindromes:
+From the paper [*long inverted repeats in eukaryotic genomes: Recombinogenic motifs determine genomic plasticity*](https://www.sciencedirect.com/science/article/pii/S0014579306000986), the following formule was used to select putative unstable palindromes based on their structural characteristics:
+
 ```math
 stem\_length/spacer\_length >= mismatch\_ratio
 ```
+
+A higher stem length relative to the spacer length suggests a disposition to intrastrand base pairing initially and a stable secondary structure subsequently, especially if the mismatch ratio is low.
+
+New fields are added to the BED file and will consitute the main databases to queary for palindromic fragiles sites:
+
+* 
+
 ### Interesting sites
 
 
