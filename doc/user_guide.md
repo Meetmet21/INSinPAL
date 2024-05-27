@@ -86,7 +86,10 @@ The output BED file contians the following fields:
 * Mismatch rate in %.
 * AT percentage in palindrome.
 
+
 ### Filtering step
+
+
 
 ### Interesting sites
 
