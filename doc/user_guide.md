@@ -33,8 +33,7 @@ When working with Whole Genome Sequencing (WGS) data for diagnosis purposes, it 
 
 ## Palindromic fragile sites
 
-
-In a genomic context, a palindrome consists of two inverted repeated DNA sequences, where the reverse complement of one sequence matches the sequence of the other. These regions are prone to forming DNA secondary structures through intrastrand base pairing. The resulting structures, such as hairpins on single-strand DNA or cruciforms on double-strand DNA, create hotspots for chromosomal rearrangements. This occurs because they can lead to double-strand breaks (DSBs) through replication fork stalling and subsequent misrepair ([Mikleni and al.](https://www.mdpi.com/1422-0067/22/6/2840)).
+In a genomic context, a palindrome consists of two inverted repeated DNA sequences, where the reverse complement of one sequence matches the sequence of the other. These regions are prone to forming DNA secondary structures through intrastrand base pairing. The resulting structures, such as hairpins on single-strand DNA or cruciforms on double-strand DNA, create hotspots for chromosomal rearrangements. This occurs because they can lead to double-strand breaks (DSBs) through replication fork stalling ([Mikleni and al.](https://www.mdpi.com/1422-0067/22/6/2840)). If DSBs are not repaired or are misrepaired, it can lead to deletions. translocations, inversions and large insertions. These alterations can distrupt the genetic functions of nearby genes, potentially leading to various genetic disorders and rare diseases ([J. Bissler](https://www.imrpress.com/journal/FBL/3/4/10.2741/A284)).
 
 
 ### Palindrome mining algorithm
