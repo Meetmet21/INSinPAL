@@ -3,7 +3,7 @@ INSinPAL User Guide
 
 ## Table of content
 
-[//]:
+[//]: #
 
 * [Introduction](#Introduction)
 * [Palindromic fragile sites](#Palindromic-fragile-sites)
@@ -23,15 +23,19 @@ INSinPAL User Guide
 * [Installation](#Installation)  
 * [Execution](#Execution)
 
-[//]:
+[//]: #
 
 
 ## Introduction
 
-When working with Whole Genome Sequencing (WGS) data for diagnosis purposes, one has to put in place filtering steps to retrain only relevant mutations/calls made by variant callers otherwise thousands of them have to filtered by experts. INSinPAL is a Snakemake workflow analyzing, filtering and formatting large insertions calls in WGS data. INSinPAL uses two structural variant (SV) callers ([Manta](https://github.com/Illumina/manta) and [Basil](https://github.com/seqan/anise_basil)) and one insertion specialized caller ([INSurVeyor](https://github.com/kensung-lab/INSurVeyor)) to form a metacaller for germline large insertion variants detection. The main idea behind INSinPAL is to focus variant selection to palindromic fragile sites as they are prone to form DNA secondary strucures and undergo chromosomal rearrangment. Two modules allow the detection of source and length of the inserted sequence in a given breakpoint if possible which gives more information for variant analysis by experts.  
+When working with Whole Genome Sequencing (WGS) data for diagnosis purposes, it is essential to implement filtering steps to retrain only relevant mutations/calls made by variant callers. Otherwise, thousands of them would need to be filtered by experts. INSinPAL is a Snakemake workflow for analyzing, filtering and formatting large insertion calls in mapped paired-reads data (BAM). INSinPAL utilizes two structural variant (SV) callers ([Manta](https://github.com/Illumina/manta) and [Basil](https://github.com/seqan/anise_basil)) and one insertion-specialized caller ([INSurVeyor](https://github.com/kensung-lab/INSurVeyor)) to form a metacaller for germline large insertion variant detection. The main idea behind INSinPAL is to focus variant selection on palindromic fragile sites, as they are prone to forming DNA secondary strucures and undergoing chromosomal rearrangment. Two modules enable the detection of source and length of the inserted sequence at a given breakpoint, providing more infnromation for variant analysis by experts.
 
 
 ## Palindromic fragile sites
+
+
+In a genomic context, a palindrome consists of two inverted repeated DNA sequences, where the reverse complement of one sequence matches the sequence of the other. These regions are prone to forming DNA secondary structures through intrastrand base pairing. The resulting structures, such as hairpins on single-strand DNA or cruciforms on double-strand DNA, create hotspots for chromosomal rearrangements. This occurs because they can lead to double-strand breaks (DSBs) through replication fork stalling and subsequent misrepair ([Mikleni and al.](https://www.mdpi.com/1422-0067/22/6/2840)).
+
 
 ### Palindrome mining algorithm
 
