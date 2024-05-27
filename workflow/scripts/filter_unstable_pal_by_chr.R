@@ -63,8 +63,7 @@ names(palindromes) <- c("Chr",
                         "Pal.len",
                         "Sp.len",
                         "Miss.rate",
-                        "AT",
-                        "Size")
+                        "AT")
 
 # Remove Size column because will be newely defined
 palindromes.1 <- palindromes[, 1:8]

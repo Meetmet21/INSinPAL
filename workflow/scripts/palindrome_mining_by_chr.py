@@ -193,8 +193,7 @@ if __name__ == "__main__":
     # translation table using hashtable
     TRANS_TAB = str.maketrans("atgcATGCNn", "tacgTACGNn")
 
-    # Main loop to go through the genomic sequence all possible midpoints for a palindrome (only even number)
-    # for now -> only checking for perfect palindromes
+    # Main loop to go through the genomic sequence all possible midpoints for a palindrome
     for midpoint in range((MIN_PAL_NUC), (len(MYSEQUENCE) - MIN_PAL_NUC - 1)):
         # Ignore Ns in the fatsa file as they are unsequenced nucleotides within the gennome
         if MYSEQUENCE[midpoint] == "N":
