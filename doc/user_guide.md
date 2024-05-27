@@ -9,7 +9,6 @@ INSinPAL User Guide
 * [Palindromic fragile sites](#Palindromic-fragile-sites)
   * [Palindrome mining algorithm](#Palindrome-mining-algorithm)
   * [Filtering step](#Filtering-step)
-  * [Interesting sites](#Interesting-sites)
 * [SV callers](#SV-callers)
   * [INSurVeyor](#INSurVeyor)
   * [Manta](#Manta)
@@ -100,13 +99,14 @@ A higher stem length relative to the spacer length suggests a disposition to int
 New fields are added to the BED file and will consitute the main databases to queary for palindromic fragiles sites:
 
 * Palindrome type: Perfect, Near and Spacer (if there is a spacer sequence).
-* Recombinogenicity score which corresponds to ```math stem\_length/spacer\_length```.
+* Recombinogenicity score which corresponds to ```stem\_length/spacer\_length```.
 * Size groups to query by size group the database: 0-50 bp/51-99 bp/100-200 bp/>200 bp.
 
-### Interesting sites
-
+INSinPAL, as default settings, uses palindromic fragile sites within ```100-200 bp and >200 bp``` as longer palindromes are more prone to form secondary structures.
 
 ## SV callers
+
+
 
 ### INSurVeyor
 
