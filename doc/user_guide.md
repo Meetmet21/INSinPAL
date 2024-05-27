@@ -89,8 +89,10 @@ The output BED file contians the following fields:
 
 ### Filtering step
 
-
-
+From the paper [*long inverted repeats in eukaryotic genomes: Recombinogenic motifs determine genomic plasticity*](https://www.sciencedirect.com/science/article/pii/S0014579306000986), the following formule was used to select putative unstable palindromes:
+```math
+stem_length/spacer_length <= mismatch_ratio
+```
 ### Interesting sites
 
 
