@@ -40,7 +40,17 @@ Thus, understanding the mechanisms leading to palindrome instability and the sta
 
 ### Palindrome mining algorithm
 
-The first step of the process is to find all palindromic sites in a reference genome. This is done by the rules in `mine_palindromes_in_genome.smk` and the main algorithm is in ths script `palindrome_mining_by_chr.py`.
+The first step of the process is to find all palindromic sites in a reference genome. This is done by the rules in `mine_palindromes_in_genome.smk` and the main algorithm is in ths script `palindrome_mining_by_chr.py`. Basically the algorithm follows these steps:
+
+```
+minimum stem length min_stem
+FOR each central_position_of_a_potential_palindrome in all_positions_in_ref:
+  IF central_position_nucleotide IS NOT sequenced:
+    THEN skip
+  ENDIF
+
+  EXTRACT dna_sequence FROM ref
+```
 
 ### Filtering step
 
