@@ -99,7 +99,9 @@ A higher stem length relative to the spacer length suggests a disposition to int
 
 New fields are added to the BED file and will consitute the main databases to queary for palindromic fragiles sites:
 
-* 
+* Palindrome type: Perfect, Near and Spacer (if there is a spacer sequence).
+* Recombinogenicity score which corresponds to $stem\_length/spacer\_length$.
+* Size groups to query by size group the database: 0-50 bp/51-99 bp/100-200 bp/>200 bp.
 
 ### Interesting sites
 
