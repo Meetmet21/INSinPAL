@@ -136,7 +136,9 @@ Since not all software supports sequence and haplotype-resolved calls, the calls
 
 In Table 2, the first number separated by a slash (/) represents the benchmark metric value from a custom benchmarking script. The second value corresponds to the [truvari](https://github.com/ACEnglish/truvari) `bench` tool, and the third number corresponds to the benchmark metric for 22 simulated large insertions. As expected, short-read sequencing data is not efficient to detect large insertions as often this kind of events occurs in tendem repeats or segmental duplications which are complex region to align with this kind of data. INSurVeyor and Manta have the best performance in simulated data, two insertions are missed because they were not well intergrated in the BAM file. 
 
-To see the uniq calls made by each caller, an upset plot has beed plotted:
+To see the unique calls made by each caller, an upset plot has beed plotted:
+
+![Upset plot](upsetplot.pdf)
 
 
 
