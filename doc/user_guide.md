@@ -10,10 +10,10 @@ INSinPAL User Guide
   * [Palindrome mining algorithm](#Palindrome-mining-algorithm)
   * [Filtering step](#Filtering-step)
 * [SV callers](#SV-callers)
+  * [Benchmarking](#Benchmarking)
   * [INSurVeyor](#INSurVeyor)
   * [Manta](#Manta)
   * [Basil](#Basil)
-  * [Benchmarking](#Benchmarking)
 * [Annotations](#Annotations)
   * [MEIs annotation](#MEIs-annotation)
   * [Source of inserted sequence](#Source-of-inserted-sequence)
@@ -106,15 +106,13 @@ INSinPAL, as default settings, uses palindromic fragile sites within ```100-200 
 
 ## SV callers
 
-
+### Benchmarking
 
 ### INSurVeyor
 
 ### Manta
 
 ### Basil
-
-### Benchmarking
 
 ## Annotations
 
