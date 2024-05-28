@@ -114,7 +114,7 @@ Short-read SV calling software was selected from relevant [benchmarking papers](
 
 Since not all software supports sequence and haplotype-resolved calls, the calls were compared to the callset based on their breakpoint locations, allowing for a ten-base pair distance between them. Calls outside this range were considered false positives. Additional annotations were made to count MEIs count in calls.
 
-**Callers time and memory performance with 12 cores on HG002 BAM.**
+**Table 1: Callers time and memory performance with 12 cores on HG002 BAM.**
 
 | Caller           | CPUs time     | Max memory | Max swap | Real time    |
 | :---:            | :---:         | :---:      | :---:    | :---:        |
@@ -123,9 +123,8 @@ Since not all software supports sequence and haplotype-resolved calls, the calls
 | Basil 1.2        | 21859.80 sec  | 5133 MB    | 60291 MB | 1821.65 sec  |
 | iPRIns 1.1.0     | 6530.30 sec   | 675 MB     | 6246 MB  | 544.19 sec   |
 | SvABA 1.2.0      | 150486.97 sec | 7638 MB    | 8196 MB  | 12540.58 sec |
-: Table 1
 
-**Callers benchmark results on HG002 Tier 1 callset.**
+**Table 2: Callers benchmark results on HG002 Tier 1 callset.**
 
 | Soft       | Precision | Recall         | TP           | FP       | FN          | MEIs in TP |
 | :---:      | :---:     | :---:          | :---:        | :---:    | :---:       | :---:      |
@@ -134,9 +133,11 @@ Since not all software supports sequence and haplotype-resolved calls, the calls
 | Basil      | 0.24/NA   | 0.15/NA/0.36   | 805/NA/8     | 2499/NA  | 4639/NA/14  | 161        | 
 | iPRIns     | 0.01/NA   | 0.01/NA        | 70/NA        | 8088/NA  | 5374/NA     | 3          | 
 | svABA      | 0.04/NA   | 0.03/NA/0.18   | 178/NA/4     | 4331/NA  | 5266/NA/18  | 17         |
-: Table 2
 
-In the table above
+In Table 2, the first number separated by a slash (/) represents the benchmark metric value from a custom benchmarking script. The second value corresponds to the [truvari](https://github.com/ACEnglish/truvari) `bench` tool, and the third number corresponds to the benchmark metric for 22 simulated large insertions. As expected, short-read sequencing data is not efficient to detect large insertions as often this kind of events occurs in tendem repeats or segmental duplications which are complex region to align with this kind of data. INSurVeyor and Manta have the best performance in simulated data, two insertions are missed because they were not well intergrated in the BAM file. 
+
+To see the uniq calls made by each caller, an upset plot has beed plotted:
+
 
 
 ### INSurVeyor
