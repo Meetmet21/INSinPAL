@@ -123,7 +123,7 @@ Since not all software supports sequence and haplotype-resolved calls, the calls
 | Basil 1.2        | 21859.80 sec  | 5133 MB    | 60291 MB | 1821.65 sec  |
 | iPRIns 1.1.0     | 6530.30 sec   | 675 MB     | 6246 MB  | 544.19 sec   |
 | SvABA 1.2.0      | 150486.97 sec | 7638 MB    | 8196 MB  | 12540.58 sec |
-[Table 1:]
+: Table 1
 
 **Callers benchmark results on HG002 Tier 1 callset.**
 
@@ -134,7 +134,7 @@ Since not all software supports sequence and haplotype-resolved calls, the calls
 | Basil      | 0.24/NA   | 0.15/NA/0.36   | 805/NA/8     | 2499/NA  | 4639/NA/14  | 161        | 
 | iPRIns     | 0.01/NA   | 0.01/NA        | 70/NA        | 8088/NA  | 5374/NA     | 3          | 
 | svABA      | 0.04/NA   | 0.03/NA/0.18   | 178/NA/4     | 4331/NA  | 5266/NA/18  | 17         |
-[Table 2: ]
+: Table 2
 
 In the table above
 
