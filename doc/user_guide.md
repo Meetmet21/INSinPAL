@@ -104,9 +104,26 @@ New fields are added to the BED file and will consitute the main databases to qu
 
 INSinPAL, as default settings, uses palindromic fragile sites within ```100-200 bp and >200 bp``` as longer palindromes are more prone to form secondary structures.
 
+
 ## SV callers
 
+Short-read SV calling software was selected from relevant [benchmarking papers](https://link.springer.com/article/10.1186/s13059-019-1720-5) and has been benchmarked to select the most sensitive tools for detecting large insertions in WGS data. The Tier 1 benchmark regions of the GIAB [HG002 SV callset](https://ftp-trace.ncbi.nlm.nih.gov/ReferenceSamples/giab/data/AshkenazimTrio/analysis/NIST_SVs_Integration_v0.6/) was used for this evaluation. Moreover, newely released callers have been also taken in account.
+
+
 ### Benchmarking
+
+Since not all software supports sequence and haplotype-resolved calls, the calls were compared to the callset based on their breakpoint locations, allowing for a ten-base pair distance between them. Calls outside this range were considered false positives. Additional annotations were made to count MEIs count in calls.
+
+*Callers performance on cluster*
+
+| Software         | CPUs time     | Max memory | Max swap | Real time    |
+| :---:            | :---:         | :---:      | :---:    | :---:        |
+| INSurVeyor 1.1.2 | 25098.02 sec  | 19227 MB   | 25334 MB | 2091.5 sec   |  
+| Manta 1.6.0      | 19273.33 sec  | 1370 MB    | 3174 MB  | 1606.11 sec  |
+| Basil 1.2        | 21859.80 sec  | 5133 MB    | 60291 MB | 1821.65 sec  |
+| iPRIns 1.1.0     | 6530.30 sec   | 675 MB     | 6246 MB  | 544.19 sec   |
+| SvABA 1.2.0      | 150486.97 sec | 7638 MB    | 8196 MB  | 12540.58 sec |
+
 
 ### INSurVeyor
 
