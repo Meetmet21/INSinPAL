@@ -114,15 +114,25 @@ Short-read SV calling software was selected from relevant [benchmarking papers](
 
 Since not all software supports sequence and haplotype-resolved calls, the calls were compared to the callset based on their breakpoint locations, allowing for a ten-base pair distance between them. Calls outside this range were considered false positives. Additional annotations were made to count MEIs count in calls.
 
-*Callers performance on cluster*
+**Callers time and memory performance with 12 cores on HG002 BAM.**
 
-| Software         | CPUs time     | Max memory | Max swap | Real time    |
+| Caller           | CPUs time     | Max memory | Max swap | Real time    |
 | :---:            | :---:         | :---:      | :---:    | :---:        |
 | INSurVeyor 1.1.2 | 25098.02 sec  | 19227 MB   | 25334 MB | 2091.5 sec   |  
 | Manta 1.6.0      | 19273.33 sec  | 1370 MB    | 3174 MB  | 1606.11 sec  |
 | Basil 1.2        | 21859.80 sec  | 5133 MB    | 60291 MB | 1821.65 sec  |
 | iPRIns 1.1.0     | 6530.30 sec   | 675 MB     | 6246 MB  | 544.19 sec   |
 | SvABA 1.2.0      | 150486.97 sec | 7638 MB    | 8196 MB  | 12540.58 sec |
+
+**Callers benchmark results on HG002 Tier 1 callset.**
+
+| Soft       | Precision | Recall         | TP           | FP       | FN          | MEIs in TP |
+| :---:      | :---:     | :---:          | :---:        | :---:    | :---:       | :---:      |
+| INSurVeyor | 0.63/0.68 | 0.33/0.30/0.91 | 1790/1657/20 | 1056/795 | 3654/3785/2 | 593        |
+| Manta      | 0.82/0.67 | 0.19/0.18/0.91 | 1036/995/20  | 233/488  | 4408/4447/2 | 135        | 
+| Basil      | 0.24/NA   | 0.15/NA/0.36   | 805/NA/8     | 2499/NA  | 4639/NA/14  | 161        | 
+| iPRIns     | 0.01/NA   | 0.01/NA        | 70/NA        | 8088/NA  | 5374/NA     | 3          | 
+| svABA      | 0.04/NA   | 0.03/NA/0.18   | 178/NA/4     | 4331/NA  | 5266/NA/18  | 17         |
 
 
 ### INSurVeyor
