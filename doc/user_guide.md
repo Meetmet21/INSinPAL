@@ -11,14 +11,7 @@ INSinPAL User Guide
   * [Filtering step](#Filtering-step)
 * [SV callers](#SV-callers)
   * [Benchmarking](#Benchmarking)
-  * [INSurVeyor](#INSurVeyor)
-  * [Manta](#Manta)
-  * [Basil](#Basil)
 * [Annotations](#Annotations)
-  * [MEIs annotation](#MEIs-annotation)
-  * [Source of inserted sequence](#Source-of-inserted-sequence)
-  * [Length of inserted sequence](#Length-of-inserted-sequence)
-  * [Functionnal annotations](#Functionnal-annotations)
 * [Installation](#Installation)  
 * [Execution](#Execution)
 
@@ -145,21 +138,24 @@ To build the metacaller, an upset plot was designed to see unique calls made by 
 From the data illustrated in figure 1, INSurVeyor, Manta and Basil were selected to call large insertions in palindromic fragile sites. Their combination as metacaler increases the recall on HG002 callset to 60%.
 
 
-### INSurVeyor
-
-### Manta
-
-### Basil
-
 ## Annotations
 
-### MEIs annotation
+To help variant selection by specialist, annotations are included to give a biological context to each putative insertion event. Insertions considered as MEIs are annotted by SCRAMble. The source of the inserted sequence is mined from the sample BAM file for each breakpoint by extracting discordant reads mapping to different genomic regions. Different annotation tags are given depending on the extracted data:
 
-### Source of inserted sequence
+* Unique source : If unique concesus genomic region is extracted from discordant reads, the given chromosome name is attached to the breakpont.
+* Multiple source : More than one genomic regions is considered as source of the insrted sequence but less than 3, the given chromosomes name is attached to the breakpont.
+* Multiple : In case of more than 3 source genomic regions are found, the `Multiple` tag is given.
+* Rev-For_Discordant : When the source names are discordant betweem reverse and forward discordant reads mapping on the inserted sequence, this tag is set.
+* Missing_Splits : No discordant reads are found to support any source, this tag is set.
 
-### Length of inserted sequence
+Another module attempts to compute the length of the inserted sequence based on the discordant reads mapped at the edges of the inserted sequence for each breakpoint. This is done by subtracting the position of the leftmost mapped discordant read from the position of the rightmost one, if enough data is found. Finally, functionnal annotations are done using [AnnotSV](https://github.com/lgmgeo/AnnotSV).
 
-### Functionnal annotations
+
+### Input/Output
+
+INSinPAL takes a mapped paired-read data file and a sample ID to be modified in the `config/config.yaml` file as:
+`samples:
+   sample_id: abosulte_path_to_sample_bam_file`
 
 
 ## Installation
