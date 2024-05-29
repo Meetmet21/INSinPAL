@@ -138,7 +138,7 @@ In Table 2, the first number separated by a slash (/) represents the benchmark m
 
 To see the unique calls made by each caller, an upset plot has beed plotted:
 
-![Upset plot](upsetplot.pdf)
+![Upset plot](upsetplot.png)
 
 
 
