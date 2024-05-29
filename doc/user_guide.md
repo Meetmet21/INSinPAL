@@ -157,10 +157,7 @@ INSinPAL takes **a mapped paired-read data (BAM)** file and a **sample ID** whic
 `samples:
    sample_id: abosulte_path_to_sample_bam_file`
 
-Moreover, a refernce genome for each chromosome should be provided and paths documented in `
-
 The output is a fully annotated Excel file located in the `results/sample_id/sample_id/` directory. Additionally, BED files containing calls made by each caller in palindromic fragile sites will be also present. Finally, a `sample_id_full_annot.bed` file is provided containing output of INSinPAL befaore extra-annotation by AnnotSV with the following header: `Chrom_name Start Stop SV-type SV-size MEI-annot Source-instered-sequence Pal-type Pal-size Spacer-size Mismatch-rate AT% Recomb-score`.
-
 
 
 ## Installation
