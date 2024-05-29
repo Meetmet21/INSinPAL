@@ -153,9 +153,14 @@ Another module attempts to compute the length of the inserted sequence based on 
 
 ### Input/Output
 
-INSinPAL takes a mapped paired-read data file and a sample ID to be modified in the `config/config.yaml` file as:
+INSinPAL takes **a mapped paired-read data (BAM)** file and a **sample ID** which should be specified in the `config/config.yaml` file as follows:
 `samples:
    sample_id: abosulte_path_to_sample_bam_file`
+
+Moreover, a refernce genome for each chromosome should be provided and paths documented in `
+
+The output is a fully annotated Excel file located in the `results/sample_id/sample_id/` directory. Additionally, BED files containing calls made by each caller in palindromic fragile sites will be also present. Finally, a `sample_id_full_annot.bed` file is provided containing output of INSinPAL befaore extra-annotation by AnnotSV with the following header: `Chrom_name Stsrt Stop SV-type SV-size MEI-annot Source-instered-sequence Pal-type Pal-size Spacer-size Mismatch-rate AT% Recomb-score`.
+
 
 
 ## Installation
