@@ -60,6 +60,8 @@ HG19_FASTA_NAME="genome_PAR_masked.fasta.gz"
 if $(curl -o "$PATH_DATA_HG19"/"$HG19_FASTA_NAME" "https://hgdownload.soe.ucsc.edu/goldenPath/hg19/bigZips/hg19.fa.masked.gz")
 then
         log_stdout "hg19 reference genome was successfully downloaded to "$PATH_DATA_HG19" from UCSC ftp."
+        # Remove compressed file
+        rm "$PATH_DATA_HG19"/"$HG19_FASTA_NAME"
 else
         log_error "hg19 reference genome couldn't be downloaded from UCSC ftp."
         exit 1
@@ -79,21 +81,39 @@ HG19_CHROMOSOMES="chromosomes.tar.gz"
 if $(curl -o "$PATH_DATA_HG19"/chromosomes/"$HG19_CHROMOSOMES" https://hgdownload.soe.ucsc.edu/goldenPath/hg19/bigZips/chromFaMasked.tar.gz)
 then
         log_stdout "hg19 reference genome chromosomes have beend downloaded to "$PATH_DATA_HG19"/chromosomes from UCSC ftp."
+        # Remove tar file
+        rm "$PATH_DATA_HG19"/chromosomes/"$HG19_CHROMOSOMES"
 else
         log_error "hg19 reference genome chromosomes couldn't be downdloaded."
         exit 1
 fi
 
 # Untar chromosomes
-if $(tar -xvzf "$PATH_DATA_HG19"/chromosomes/"$HG19_CHROMOSOMES")
+if $(tar -xvzf "$PATH_DATA_HG19"/chromosomes/"$HG19_CHROMOSOMES" --directory "$PATH_DATA_HG19"/chromosomes &> /dev/null)
 then
         log_stdout "Chromosomes have been untared."
 else
         log_error "Untar process has failed with tar."
+        exit 1
 fi
 
 # Rename chromosomes files to 1.fa than chr1.fa and remove files mathcing alternative alleles or MT
-for
+log_stdout "Rename chromosomes files from chr1.fa.masked to 1.fa and remove unneccary fasta files."
+for file in $(ls "$PATH_DATA_HG19"/chromosomes/*); do
+	# Filename
+	filename=$(basename "$file")
+	# Remove contif, alternative chr files and Mitochondrial file
+	if [[ $(grep -cP "chr.+_" "$file") -eq 1 ]] || [[ $(grep -cP "chrM" "$file") -eq 1 ]];
+	then
+		rm $file
+	else
+		# Change file name from chr1.fa.masked to 1.fa
+		newname=${filename#chr}
+		newname=${newname%.masked}
+		# Change name in directory
+		mv "$file" "$PATH_DATA_HG19"/chromosomes/"$newname"
+	fi
+done
 
 ### Progs ###
 
