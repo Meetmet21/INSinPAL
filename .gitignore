@@ -29,7 +29,7 @@ resources/data/*
 .idea/
 
 # Python cache directories
-__pycache__/
+__pycache__
 
 # Empty folders to keep
 !logs/dry_runs/.gitkeep
