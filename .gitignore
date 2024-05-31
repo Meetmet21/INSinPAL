@@ -21,8 +21,7 @@ workflow/logs/*
 
 # Ignore all files within result and resource folder
 results/*
-resources/data/*
-resources/singularity/*
+resources/*
 
 # Except 
 !resources/singularity/Anis-Basil/1.2.0/Anise_Basil_1_2_0.def
