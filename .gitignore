@@ -15,16 +15,18 @@ workflow/logs/*
 *.txt
 *.vcf
 *.vcf.gz
+*.sif
 
 # Except test bam file in test folder
 !test/*.bam
 
 # Ignore all files within result and resource folder
 results/*
-resources/*
+resources/singularity/INSurVeyor
+resources/singularity/manta
+resources/data/*
 
 # Except 
-!resources/singularity/Anis-Basil/1.2.0/Anise_Basil_1_2_0.def
 !resources/data/MEI_consensus_seqs_SCRAMble_plus_MOBSTER.fa
 
 # IDLE related config files
