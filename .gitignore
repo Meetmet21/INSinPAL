@@ -21,7 +21,7 @@ workflow/logs/*
 
 # Ignore all files within result and resource folder
 results/*
-resources/*
+resources/data/Genome/*
 
 # Task realted script files
 check_for_new_bam.sh
@@ -38,6 +38,3 @@ __pycache__/
 !results/.gitkeep
 !workflow/logs/.gitkeep
 !resources/.gitkeep
-
-# Resources to keep
-!resources/data/MEI_consensus_seqs_SCRAMble_plus_MOBSTER.fa
