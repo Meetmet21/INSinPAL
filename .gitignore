@@ -22,7 +22,10 @@ workflow/logs/*
 # Ignore all files within result and resource folder
 results/*
 resources/data/*
+resources/singularity/*
+
 # Except 
+!resources/singularity/Anis-Basil/1.2.0/Anise_Basil_1_2_0.def
 !resources/data/MEI_consensus_seqs_SCRAMble_plus_MOBSTER.fa
 
 # IDLE related config files
