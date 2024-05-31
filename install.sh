@@ -55,6 +55,7 @@ fi
 log_stdout "Data acquisition."
 
 # Reference genome hg19 masked repeat region from UCSC ftp
+mkdir -p resources/data/Genome/hg19/chromosomes
 PATH_DATA_HG19="resources/data/Genome/hg19"
 HG19_FASTA_NAME="genome_PAR_masked.fasta.gz"
 if $(curl -o "$PATH_DATA_HG19"/"$HG19_FASTA_NAME" "https://hgdownload.soe.ucsc.edu/goldenPath/hg19/bigZips/hg19.fa.masked.gz")
