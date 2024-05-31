@@ -14,6 +14,8 @@ from os.path import join, dirname, abspath
 # Snakemake version used during development.
 SNAKEMAKE_VERSION = "7.32.4"
 
+# Root directory of INSinPAL pipeline.
+MAIN_DIR = abspath(join(dirname(__file__), ".."))
 
 class Progs:
     """
@@ -22,7 +24,7 @@ class Progs:
 
     def __init__(self):
         # Path to progs directory containing all the external software.
-        self.path_Progs_dir = "/scratch/DMGL/SMG-mesehir/stage_hug/Palindrome/Progs"
+        self.path_Progs_dir = join(MAIN_DIR, "resources/singularity")
 
         # SV callers used to call Insertions in WGS.
         self.names = ["insurveyor", "manta", "basil"]
@@ -86,7 +88,7 @@ class Data:
 
     def __init__(self):
         # Data directory
-        self.path_data_dir = "/data/DMGL/SMG-mesehir-data"
+        self.path_data_dir = join(MAIN_DIR, "resources/data")
 
         # REFERENCE GENOME
         # reference genome with masked regions and decoys
@@ -97,8 +99,7 @@ class Data:
                                     for chr in self.chrom]
 
         # REFERENCE MEIs sequence fasta for SCRAMble
-        self.meis_ref = ("/scratch/DMGL/SMG-mesehir/stage_hug/Palindrome/Progs/scramble-MEI-detection"
-                         "/MEI_consensus_seqs_SCRAMble_plus_MOBSTER.fa")
+        self.meis_ref = ("/scratch/DMGL/SMG-mesehir/stage_hug/Palindrome/Progs/scramble-MEI-detection""/MEI_consensus_seqs_SCRAMble_plus_MOBSTER.fa")
 
 
 class WorkFlowPaths:
@@ -108,16 +109,14 @@ class WorkFlowPaths:
     """
 
     def __init__(self):
-        # Root directory of INSinPAL pipeline.
-        self.main = abspath(join(dirname(__file__), ".."))
         # Results folder
-        self.results = join(self.main, "results")
+        self.results = join(MAIN_DIR, "results")
         # Resources folder
-        self.resources = join(self.main, "resources")
+        self.resources = join(MAIN_DIR, "resources")
         # config folder
-        self.config = join(self.main, "config")
+        self.config = join(MAIN_DIR, "config")
         # Workflow folder
-        self.workflow = join(self.main, "workflow")
+        self.workflow = join(MAIN_DIR, "workflow")
         # envs folder
         self.envs = join(self.workflow, "envs")
         # notebook folder
