@@ -21,11 +21,9 @@ workflow/logs/*
 
 # Ignore all files within result and resource folder
 results/*
-resources/data/Genome/*
-
-# Task realted script files
-check_for_new_bam.sh
-launch_analysis.sh
+resources/data/*
+# Except 
+!resources/data/MEI_consensus_seqs_SCRAMble_plus_MOBSTER.fa
 
 # IDLE related config files
 .idea/
@@ -37,4 +35,3 @@ __pycache__/
 !logs/dry_runs/.gitkeep
 !results/.gitkeep
 !workflow/logs/.gitkeep
-!resources/.gitkeep

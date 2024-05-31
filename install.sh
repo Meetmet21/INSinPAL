@@ -7,11 +7,13 @@ set -o pipefail
 
 # Print error message
 log_error() {
+		echo -e '######'
         echo -e 'Error: '"$1" >&2
 }
 
 # Print log messsage
 log_stdout() {
+		echo -e '############'
         echo -e 'Install log: '"$1"
 }
 
@@ -52,38 +54,41 @@ else
 fi
 
 ### Data ###
-log_stdout "Data acquisition."
+log_stdout "Data acquisition: reference genome hg19 masked regions."
 
 # Reference genome hg19 masked repeat region from UCSC ftp
 mkdir -p resources/data/Genome/hg19/chromosomes
 PATH_DATA_HG19="resources/data/Genome/hg19"
 HG19_FASTA_NAME="genome_PAR_masked.fasta.gz"
-if $(curl -o "$PATH_DATA_HG19"/"$HG19_FASTA_NAME" "https://hgdownload.soe.ucsc.edu/goldenPath/hg19/bigZips/hg19.fa.masked.gz")
+if [[ -f "$PATH_DATA_HG19"/"$HG19_FASTA_NAME" ]] || \
+$(curl -o "$PATH_DATA_HG19"/"$HG19_FASTA_NAME" "https://hgdownload.soe.ucsc.edu/goldenPath/hg19/bigZips/hg19.fa.masked.gz")
 then
         log_stdout "hg19 reference genome was successfully downloaded to "$PATH_DATA_HG19" from UCSC ftp."
-        # Remove compressed file
-        rm "$PATH_DATA_HG19"/"$HG19_FASTA_NAME"
 else
         log_error "hg19 reference genome couldn't be downloaded from UCSC ftp."
         exit 1
 fi
 
 # Uncompress reference genome OR skip if already exists
-if [[ -f "$PATH_DATA_HG19"/${HG19_FASTA_NAME%.gz} ]] || $(gunzip -d "$PATH_DATA_HG19"/"$HG19_FASTA_NAME")
+if [[ -f "$PATH_DATA_HG19"/${HG19_FASTA_NAME%.gz} ]]
 then
         log_stdout "hg19 reference genome successfully uncompressed."
+        rm "$PATH_DATA_HG19"/$"HG19_FASTA_NAME"
+elif $(gunzip -d "$PATH_DATA_HG19"/"$HG19_FASTA_NAME")
+then
+        log_stdout "hg19 reference genome was successfully uncompressed."
 else
         log_error "hg19 reference genome couldn't be uncompressed by gunzip."
         exit 1
 fi
 
+log_stdout "Data acquisition: reference genome fasta per chromosome."
 # Reference genome hg19 masked repeat regions per chromosome
 HG19_CHROMOSOMES="chromosomes.tar.gz"
-if $(curl -o "$PATH_DATA_HG19"/chromosomes/"$HG19_CHROMOSOMES" https://hgdownload.soe.ucsc.edu/goldenPath/hg19/bigZips/chromFaMasked.tar.gz)
+if [[ -f "$PATH_DATA_HG19"/chromosomes/"$HG19_CHROMOSOMES" ]] || \
+$(curl -o "$PATH_DATA_HG19"/chromosomes/"$HG19_CHROMOSOMES" https://hgdownload.soe.ucsc.edu/goldenPath/hg19/bigZips/chromFaMasked.tar.gz)
 then
         log_stdout "hg19 reference genome chromosomes have beend downloaded to "$PATH_DATA_HG19"/chromosomes from UCSC ftp."
-        # Remove tar file
-        rm "$PATH_DATA_HG19"/chromosomes/"$HG19_CHROMOSOMES"
 else
         log_error "hg19 reference genome chromosomes couldn't be downdloaded."
         exit 1
@@ -93,13 +98,15 @@ fi
 if $(tar -xvzf "$PATH_DATA_HG19"/chromosomes/"$HG19_CHROMOSOMES" --directory "$PATH_DATA_HG19"/chromosomes &> /dev/null)
 then
         log_stdout "Chromosomes have been untared."
+        # Remove tar file
+        rm "$PATH_DATA_HG19"/chromosomes/"$HG19_CHROMOSOMES"
 else
         log_error "Untar process has failed with tar."
         exit 1
 fi
 
 # Rename chromosomes files to 1.fa than chr1.fa and remove files mathcing alternative alleles or MT
-log_stdout "Rename chromosomes files from chr1.fa.masked to 1.fa and remove unneccary fasta files."
+log_stdout "Rename chromosomes files from chr1.fa.masked to 1.fa and remove unnecessary fasta files."
 for file in $(ls "$PATH_DATA_HG19"/chromosomes/*); do
 	# Filename
 	filename=$(basename "$file")
