@@ -8,6 +8,8 @@ workflow/logs/*
 .snakemake/
 
 # Ignore all data type files as BED, BAM, TXT or VCF
+*.fasta
+*.fa
 *.bed
 *.bam
 *.txt
@@ -36,3 +38,6 @@ __pycache__/
 !results/.gitkeep
 !workflow/logs/.gitkeep
 !resources/.gitkeep
+
+# Resources to keep
+!resources/data/MEI_consensus_seqs_SCRAMble_plus_MOBSTER.fa
