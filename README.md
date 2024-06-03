@@ -38,12 +38,17 @@ INSinPAL is a kind of metacaller using thre different SV callers and a few exter
   * [INSurVeyor 1.1.2](https://github.com/kensung-lab/INSurVeyor)
   * [Manta 1.6.0](https://github.com/Illumina/manta)
   * [Basil 1.1.0](https://github.com/seqan/anise_basil)
+* Data:
+  * [GRCh37 reference genome with repeated regions masked](https://hgdownload.soe.ucsc.edu/goldenPath/hg19/bigZips/hg19.fa.masked.gz)
+  * [GRCh37 chromosomes](https://hgdownload.soe.ucsc.edu/goldenPath/hg19/bigZips/chromFaMasked.tar.gz)
+  * [MEIs reference sequences](resources/data/MEI_consensus_seqs_SCRAMble_plus_MOBSTER.fa)
+  
 
-To setup INSinPAL environment, one cas use the `install.sh` bash file to donwload all required files and software if all requirement software are present.
+To setup INSinPAL environment, one can use the `install.sh` bash file to donwload all required files and software if all the requirements are met.
 ```bash
 bash install.sh
 ```
-Note that, the `config/parameters.py` lists all paths necessary for INSinPAL. If one want to change data or caller in INSinPAL, he should also change this file to the correct path.
+Note that, the `config/parameters.py` lists all paths necessary for Snakemake to work. If one want to change data sources such as the reference genome, he should also change this file to the correct paths.
 
 
 
