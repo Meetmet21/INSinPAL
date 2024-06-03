@@ -56,14 +56,15 @@ is set to LSF in `workflow/profile/lsf-status.py` and needs to be change if one 
 ## Usage
 
 To perform an analysis with INSinPAL, one musts change the `config/config.yaml` with its own `sample ID` and 
-^sample absolute path` such as:
+`sample absolute path` such as:
 ```
 samples:
 	sample_id: "sample_abolute_path"
 ```
 
-For each analysis, if `run_analysis.sh` is used, logs related to rules are stored in `workflow/logs/sample_ID/` and logs 
-related to LSF jobs are stored in `logs/` with dry runs for a given sample in `logs/dry_runs/`.
+For each analysis, if `run_analysis.sh` is used, logs related to rules are stored in `workflow/logs/sample_ID/` and the 
+ones related to LSF jobs are stored in `logs/` with dry runs for a given sample in `logs/dry_runs/`.
 
+## Contact
 
 
