@@ -236,7 +236,7 @@ then
 	# Remove the compress file
 	rm "$MANTA_DIR"/$(basename "$URL")
 
-	log_stdout "Manta was successfully uncompressed."
+	log_stdout "Manta was successfully uncompressed in "$MANTA_DIR"."
 
 else
 
@@ -250,10 +250,10 @@ fi
 log_stdout "Building Basil singularity image."
 
 BASIL_DIR="$PROGS_DIR"/"Anis-Basil/1.2.0"
-if $(singularity build "$BASIL_DIR"/"Anise_Basil_1_2_0.def" "$BASIL_DIR"/"anisebasil.sif")
+if $(singularity build "$BASIL_DIR"/"anisebasil.sif" "$BASIL_DIR"/"Anise_Basil_1_2_0.def")
 then
 
-	log_stdout "Basil singularity image was successfully built."
+	log_stdout "Basil singularity image was successfully built in "$BASIL_DIR"."
 
 else
 
