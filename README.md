@@ -22,9 +22,7 @@ See ![DAG of jobs](./doc/dag.pdf) for workflow rules structure and/or read the [
 
 ## Requirements
 
-* Python == 2.7 and == 3.10
-* R == 4.3.3
-* Snakemake == 7.32
+* Python2 and 3
 * Conda == 24.1.2
 * Singularity == 3.2.0-1
 
@@ -38,11 +36,11 @@ INSinPAL is a kind of metacaller using thre different SV callers and a few exter
   * [INSurVeyor 1.1.2](https://github.com/kensung-lab/INSurVeyor)
   * [Manta 1.6.0](https://github.com/Illumina/manta)
   * [Basil 1.1.0](https://github.com/seqan/anise_basil)
+  * [SCRAMble 1.0.2](https://github.com/GeneDx/scramble)
 * Data:
   * [GRCh37 reference genome with repeated regions masked](https://hgdownload.soe.ucsc.edu/goldenPath/hg19/bigZips/hg19.fa.masked.gz)
   * [GRCh37 chromosomes](https://hgdownload.soe.ucsc.edu/goldenPath/hg19/bigZips/chromFaMasked.tar.gz)
   * [MEIs reference sequences](resources/data/MEI_consensus_seqs_SCRAMble_plus_MOBSTER.fa)
-  
 
 To setup INSinPAL environment, one can use the `install.sh` bash file to donwload all required files and software if all the requirements are met.
 ```bash
