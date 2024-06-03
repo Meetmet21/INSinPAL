@@ -49,7 +49,7 @@ then
         log_stdout ""$SNK_ENV_NAME" environment is already present."
 
 # Build INSinPAL conda environment then
-elif $(conda env create --name "$SNK_ENV_NAME" --file=resources/conda/snakemake_env.yaml)
+elif $(conda create --name "$SNK_ENV_NAME" --file=resources/conda/snakemake_env.yaml)
 then
 
         log_stdout ""$SNK_ENV_NAME" environment was successfully created."
