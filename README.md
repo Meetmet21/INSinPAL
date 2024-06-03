@@ -32,4 +32,18 @@ Note that, INSinPAL was not tested for versions lower or higher than the ones ci
 
 ## Getting Started
 
+INSinPAL is a kind of metacaller using thre different SV callers and a few external data files that need to be setup:
+
+* Callers:
+  * [INSurVeyor 1.1.2](https://github.com/kensung-lab/INSurVeyor)
+  * [Manta 1.6.0](https://github.com/Illumina/manta)
+  * [Basil 1.1.0](https://github.com/seqan/anise_basil)
+
+To setup INSinPAL environment, one cas use the `install.sh` bash file to donwload all required files and software if all requirement software are present.
+```bash
+bash install.sh
+```
+Note that, the `config/parameters.py` lists all paths necessary for INSinPAL. If one want to change data or caller in INSinPAL, he should also change this file to the correct path.
+
+
 
