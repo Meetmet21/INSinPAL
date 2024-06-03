@@ -53,6 +53,17 @@ such as the reference genome, they should also update this file to the correct p
 is set to LSF in `workflow/profile/lsf-status.py` and needs to be change if one wants to submit jobs on SLURM. Finally, the 
 `workflow/profile/config.yaml` file sets Snakemake's default parameters and can be changed if needed.
 
+## Usage
+
+To perform an analysis with INSinPAL, one musts change the `config/config.yaml` with its own `sample ID` and 
+^sample absolute path` such as:
+```
+samples:
+	sample_id: "sample_abolute_path"
+```
+
+For each analysis, if `run_analysis.sh` is used, logs related to rules are stored in `workflow/logs/sample_ID/` and logs 
+related to LSF jobs are stored in `logs/` with dry runs for a given sample in `logs/dry_runs/`.
 
 
 
