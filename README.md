@@ -30,7 +30,7 @@ Note that, INSinPAL was not tested for versions lower or higher than the ones ci
 
 ## Getting Started
 
-INSinPAL is a kind of metacaller using thre different SV callers and a few external data files that need to be setup:
+INSinPAL is a kind of metacaller using three different SV callers and a few external data files that need to be setup:
 
 * Callers:
   * [INSurVeyor 1.1.2](https://github.com/kensung-lab/INSurVeyor)
@@ -44,9 +44,15 @@ INSinPAL is a kind of metacaller using thre different SV callers and a few exter
 
 To setup INSinPAL environment, one can use the `install.sh` bash file to donwload all required files and software if all the requirements are met.
 ```bash
+git clone git@github.com:Meetmet21/INSinPAL.git
+cd INSinPAL
 bash install.sh
 ```
-Note that, the `config/parameters.py` lists all paths necessary for Snakemake to work. If one want to change data sources such as the reference genome, he should also change this file to the correct paths.
+Note that, the `config/parameters.py` lists all paths necessary for Snakemake to work. If one want to change data sources 
+such as the reference genome, he should also change this file to the correct paths.Moreover, the default cluster profile 
+is set to LSF `workflow/profile/lsf-status.py` and needs to be change if one wants to submit on SLURM. Finally, the 
+`workflow/profile/config.yaml` file sets Snakemake default parameters and can be changed if needed.
+
 
 
 
