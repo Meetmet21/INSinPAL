@@ -17,7 +17,7 @@ INSinPAL Snakemake workflow will proceed as following:
 
 ### Documentation
 
-See ![DAG of jobs](./doc/dag.pdf) for workflow rules structure and/or read the [user guide](./doc/user_guide.md) detailed information about the workflow as setup steps, biological concepts, etc...
+See ![DAG of jobs](./doc/dag.pdf) for workflow rules structure and/or read the [user guide](./doc/user_guide.md) detailed information about the workflow as biological concepts, input/output formats, etc...
  
 
 ## Requirements
@@ -56,7 +56,7 @@ is set to LSF in `workflow/profile/lsf-status.py` and needs to be change if one 
 ## Usage
 
 To perform an analysis with INSinPAL, one musts change the `config/config.yaml` with its own `sample ID` and 
-`sample absolute path` such as:
+`sample absolute path` leading to sample BAM:
 ```
 samples:
 	sample_id: "sample_abolute_path"
@@ -67,4 +67,5 @@ ones related to LSF jobs are stored in `logs/` with dry runs for a given sample 
 
 ## Contact
 
+You cantact me on the email mehmetsehir1@gmail.com.
 
