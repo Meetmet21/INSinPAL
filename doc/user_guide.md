@@ -18,14 +18,14 @@ INSinPAL User Guide
 
 ## Introduction
 
-When working with Whole Genome Sequencing (WGS) data for diagnosis purposes, it is essential to implement filtering steps to retrain only relevant mutations/calls made by variant callers. Otherwise, thousands of them would need to be filtered by experts. INSinPAL is a Snakemake workflow for analyzing, filtering and formatting large insertion calls in mapped paired-reads data (BAM). INSinPAL utilizes two structural variant (SV) callers ([Manta](https://github.com/Illumina/manta) and [Basil](https://github.com/seqan/anise_basil)) and one insertion-specialized caller ([INSurVeyor](https://github.com/kensung-lab/INSurVeyor)) to form a metacaller for germline large insertion variant detection. The main idea behind INSinPAL is to focus variant selection on palindromic fragile sites, as they are prone to forming DNA secondary strucures and undergoing chromosomal rearrangment. Two modules enable the detection of source and length of the inserted sequence at a given breakpoint, providing more infnromation for variant analysis by experts.
+When working with Whole Genome Sequencing (WGS) data for diagnosis purposes, it is essential to implement filtering steps to retain only relevant mutations/calls made by variant callers. Otherwise, thousands of them would need to be filtered by experts. INSinPAL is a Snakemake workflow for analyzing, filtering and formatting large insertion calls in mapped paired-reads data (BAM). INSinPAL utilizes two structural variant (SV) callers ([Manta](https://github.com/Illumina/manta) and [Basil](https://github.com/seqan/anise_basil)) and one insertion-specialized caller ([INSurVeyor](https://github.com/kensung-lab/INSurVeyor)) to form a metacaller for germline large insertion variant detection. The main idea behind INSinPAL is to focus variant selection on palindromic fragile sites, as they are prone to forming DNA secondary strucures and undergoing chromosomal rearrangment. Two modules enable the detection of source and length of the inserted sequence at a given breakpoint, providing more infnromation for variant analysis by experts.
 
 
 ## Palindromic fragile sites
 
-In a genomic context, a palindrome consists of two inverted repeated DNA sequences, where the reverse complement of one sequence matches the sequence of the other. These regions are prone to forming DNA secondary structures through intrastrand base pairing. The resulting structures, such as hairpins on single-strand DNA or cruciforms on double-strand DNA, create hotspots for chromosomal rearrangements. This occurs because they can lead to double-strand breaks (DSBs) through replication fork stalling ([*Mikleni and al.*](https://www.mdpi.com/1422-0067/22/6/2840)). If DSBs are not repaired or are misrepaired, it can lead to deletions. translocations, inversions and large insertions. These alterations can distrupt the genetic functions of nearby genes, potentially leading to various genetic disorders and rare diseases ([*J. Bissler*](https://www.imrpress.com/journal/FBL/3/4/10.2741/A284)).
+In a genomic context, a palindrome consists of two inverted repeated DNA sequences, where the reverse complement of one sequence matches the sequence of the other. These regions are prone to forming DNA secondary structures through intrastrand base pairing. The resulting structures, such as hairpins on single-strand DNA or cruciforms on double-strand DNA, create hotspots for chromosomal rearrangements. The instability is caused because of double-strand breaks (DSBs) through replication fork stalling over DNA secondary structures. ([*Mikleni and al.*](https://www.mdpi.com/1422-0067/22/6/2840)). If DSBs are not repaired or are misrepaired, it can lead to deletions. translocations, inversions and large insertions. These alterations potentially distrupt the genetic functions of nearby genes, leading to various genetic disorders and rare diseases ([*J. Bissler*](https://www.imrpress.com/journal/FBL/3/4/10.2741/A284)).
 
-Thus, understanding the mechanisms leading to palindrome instability and the stability of their secondary structures is crucial for detecting palindromic fragile sites. Indeed, many palindromes do not threaten genome stability. Instead, they contribute to the dynamics of gene regulation. In the literature, three essential characteristics of palindromes are commonly related to their instability (forming secondary strucutures): the length of one repeat, or a stem, the presence and length of a spacer (sequence between both stems) and the sequance mismatching between both stems. The longer the stem, the shorter the spacer, and the higher the identity between stems, the more likely a palindrome is th be unstable and form a secondary structure. These three features also similarly contribute to the stability of the secondary structure ([*Wang and al.*]((https://www.sciencedirect.com/science/article/pii/S0014579306000986))).
+Thus, understanding the mechanisms leading to palindrome instability and the stability of their secondary structures is crucial for detecting palindromic fragile sites. Indeed, many palindromes do not threaten genome stability. Instead, they contribute to the dynamic of gene regulation. In the literature, three essential characteristics of palindromes are commonly related to their instability (forming secondary strucutures): the length of one repeat, or a stem, the presence and length of a spacer (sequence between both stems) and the sequance mismatching between both stems. The longer the stem, the shorter the spacer, and the higher the identity between stems, the more likely a palindrome is th be unstable and form a secondary structure. These three features also similarly contribute to the stability of the secondary structure ([*Wang and al.*]((https://www.sciencedirect.com/science/article/pii/S0014579306000986))).
 
 
 ### Palindrome mining algorithm
@@ -87,7 +87,7 @@ stem\_length/spacer\_length >= mismatch\_ratio
 
 A higher stem length relative to the spacer length suggests a disposition to intrastrand base pairing initially and a stable secondary structure subsequently, especially if the mismatch ratio is low.
 
-New fields are added to the BED file and will consitute the main databases to queary for palindromic fragiles sites:
+New fields are added to the BED file and will consitute the main databases to queary palindromic fragiles sites:
 
 * Palindrome type: Perfect, Near and Spacer (if there is a spacer sequence).
 * Recombinogenicity score which corresponds to ```stem\_length/spacer\_length```.
@@ -98,7 +98,7 @@ INSinPAL, as default settings, uses palindromic fragile sites within ```100-200 
 
 ## SV callers
 
-Short-read SV calling software was selected from relevant [benchmarking papers](https://link.springer.com/article/10.1186/s13059-019-1720-5) and has been benchmarked to select the most sensitive tools for detecting large insertions in WGS data. The Tier 1 benchmark regions of the GIAB [HG002 SV callset](https://ftp-trace.ncbi.nlm.nih.gov/ReferenceSamples/giab/data/AshkenazimTrio/analysis/NIST_SVs_Integration_v0.6/) was used for this evaluation. Moreover, newely released callers have been also taken in account.
+Short-read SV calling software were selected from relevant [benchmarking papers](https://link.springer.com/article/10.1186/s13059-019-1720-5) and have been benchmarked to select the most sensitive tools for detecting large insertions in WGS data. The Tier 1 benchmark regions of the GIAB [HG002 SV callset](https://ftp-trace.ncbi.nlm.nih.gov/ReferenceSamples/giab/data/AshkenazimTrio/analysis/NIST_SVs_Integration_v0.6/) was used for this evaluation. Moreover, newely released callers were also considered.
 
 
 ### Benchmarking
@@ -125,7 +125,7 @@ Since not all software supports sequence and haplotype-resolved calls, the calls
 | iPRIns     | 0.01/NA   | 0.01/NA        | 70/NA        | 8088/NA  | 5374/NA     | 3          | 
 | svABA      | 0.04/NA   | 0.03/NA/0.18   | 178/NA/4     | 4331/NA  | 5266/NA/18  | 17         |
 
-In Table 2, the first number separated by a slash (/) represents the benchmark metric value from a custom benchmarking script. The second value corresponds to the [truvari](https://github.com/ACEnglish/truvari) `bench` tool, and the third number corresponds to the benchmark metric for 22 simulated large insertions. As expected, short-read sequencing data is not efficient to detect large insertions as often this kind of events occurs in tendem repeats or segmental duplications which are complex region to align with this kind of data. INSurVeyor and Manta have the best performance in simulated data, two insertions are missed because they were not well intergrated in the BAM file. 
+In Table 2, the first number separated by a slash (/) represents the benchmark metric value from a custom benchmarking script. The second value corresponds to the [truvari](https://github.com/ACEnglish/truvari) `bench` tool, and the third number corresponds to the benchmark metric for 22 simulated large insertions. As expected, short-read sequencing is not efficient to detect large insertions as often this kind of events occurs in tendem repeats or segmental duplications which are complex region to align with this kind of data. INSurVeyor and Manta have the best performance in simulated data, two insertions are missed because they were not well intergrated in the BAM file. 
 
 To build the metacaller, an upset plot was designed to see unique calls made by each caller:
 
@@ -138,13 +138,13 @@ From the data illustrated in figure 1, INSurVeyor, Manta and Basil were selected
 
 ## Annotations
 
-To help variant selection by specialist, annotations are included to give a biological context to each putative insertion event. Insertions considered as MEIs are annotted by SCRAMble. The source of the inserted sequence is mined from the sample BAM file for each breakpoint by extracting discordant reads mapping to different genomic regions. Different annotation tags are given depending on the extracted data:
+To help variant selection by specialist, annotations are included to give a biological context to each putative insertion event. Insertions considered as MEIs are annotated by SCRAMble. The source of the inserted sequence is mined from the sample `BAM` file for each breakpoint by extracting discordant reads mapping to different genomic regions. Different annotation tags are given depending on the extracted data:
 
 * Unique source : If unique concesus genomic region is extracted from discordant reads, the given chromosome name is attached to the breakpont.
-* Multiple source : More than one genomic regions is considered as source of the insrted sequence but less than 3, the given chromosomes name is attached to the breakpont.
+* Multiple source : More than one genomic regions is considered as source of the inserted sequence but less than 3, the given chromosome names is attached to the breakpont.
 * Multiple : In case of more than 3 source genomic regions are found, the `Multiple` tag is given.
-* Rev-For_Discordant : When the source names are discordant betweem reverse and forward discordant reads mapping on the inserted sequence, this tag is set.
-* Missing_Splits : No discordant reads are found to support any source, this tag is set.
+* Rev-For_Discordant : When the source names are discordant betweem reverse and forward discordant reads mapping on the inserted sequence.
+* Missing_Splits : No discordant reads are found to support any source.
 
 Another module attempts to compute the length of the inserted sequence based on the discordant reads mapped at the edges of the inserted sequence for each breakpoint. This is done by subtracting the position of the leftmost mapped discordant read from the position of the rightmost one, if enough data is found. Finally, functionnal annotations are done using [AnnotSV](https://github.com/lgmgeo/AnnotSV).
 
