@@ -262,5 +262,32 @@ else
 	exit 1
 fi
 
+# AnnotSV
 
+URL="https://github.com/lgmgeo/AnnotSV/archive/refs/tags/v3.4.2.tar.gz"
+log_stdout "Downloading AnnotSV code source from "$URL"."
+ANNOTSV_DIR="$PROGS_DIR"/"AnnotSV/3.4"
+mkdir -p "$ANNOTSV_DIR"
+
+if $(wget --quiet --directory-prefix "$ANNOTSV_DIR" "$URL")
+then
+
+	log_stdout "AnnotSV code source was succesfully downloaded to "$ANNOTSV_DIR"."
+
+else
+	log_error "AnnotSV couldn't be downloaded."
+	exit 1
+fi
+
+log_stdout "Untaring AnnotSV."
+
+if (tar -xvzf "$ANNOTSV_DIR"/$(basename "$URL")  --directory "$ANNOTSV_DIR" &> /dev/null)
+then
+	log_stdout "AnnotSV was successfully untared."
+else
+	log_error "AnnotSV couldn't be untared."
+fi
+
+log_stdout "Building code source for AnnotSV."
+if
 ### Test ###
