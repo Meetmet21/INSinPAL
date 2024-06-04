@@ -9,15 +9,19 @@ set -o pipefail
 
 # Print error message
 log_error() {
-		echo -e '######'
+	echo -e '######'
         echo -e 'Error: '"$1" >&2
 }
 
 # Print log messsage
 log_stdout() {
-		echo -e '############'
+	echo -e '############'
         echo -e 'Install log: '"$1"
 }
+
+### Global variables ###
+# Path to main directory
+MAIN_DIR=$(echo $PWD)
 
 ### Conda ###
 
@@ -289,5 +293,14 @@ else
 fi
 
 log_stdout "Building code source for AnnotSV."
-if
+BUILD_DIR="$ANNOTSV_DIR"/"AnnotSV-3.4.2"
+
+if $(cd "$BUILD_DIR" && make PREFIX=. install && make PREFIX=. install-human-annotation)
+then
+	log_stdout "AnnotSV was successfully built to "$BUILD_DIR"."
+else
+	log_error "AnnotSV couldn't be build."
+	exit 1
+fi
+
 ### Test ###

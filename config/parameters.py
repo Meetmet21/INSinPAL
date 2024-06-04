@@ -78,7 +78,7 @@ class Progs:
         # Path to AnnotSV to annotate Insertions.
         self.AnnotSV_version = "3.4"
         self.AnnotSV_dir = "AnnotSV"
-        self.AnnotSV = join(self.path_Progs_dir, self.AnnotSV_dir, self.AnnotSV_version, "AnnotSV")
+        self.AnnotSV = join(self.path_Progs_dir, self.AnnotSV_dir, self.AnnotSV_version, "AnnotSV-3.4.2")
 
 
 class Data:
