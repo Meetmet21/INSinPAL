@@ -25,6 +25,7 @@ See ![DAG of jobs](./doc/dag.pdf) for workflow rules structure and/or read the [
 * Python2 and 3
 * Conda == 24.1.2
 * Singularity == 3.2.0-1
+* Make
 
 Note that, INSinPAL was not tested for requirements versions lower or higher than the ones cited above.
 
