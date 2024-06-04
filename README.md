@@ -68,5 +68,5 @@ ones related to LSF jobs are stored in `logs/` with dry runs for a given sample 
 
 ## Contact
 
-You cantact me on the email mehmetsehir1@gmail.com.
+You can cantact on  mehmetsehir1@gmail.com.
 
