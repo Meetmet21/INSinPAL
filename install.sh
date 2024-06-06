@@ -78,6 +78,9 @@ fi
 ################################################ DATA ACQUISITION ################################################
 
 
+###################### REFERENCE GENOME hg19 FULL SEQUENCE ######################
+
+
 # Reference genome hg19 masked repeat region from UCSC ftp
 log_stdout "Downloading reference genome hg19 with masked repeat regions."
 # Set up downlading DIR
@@ -109,6 +112,9 @@ else
         log_error "hg19 reference genome couldn't be uncompressed by gunzip."
         exit 1
 fi
+
+
+###################### REFERENCE GENOME hg19 PER CHROMOSOME ######################
 
 
 # Reference genome hg19 masked repeat regions per chromosome
@@ -159,9 +165,13 @@ for file in $(ls "$PATH_DATA_HG19"/chromosomes/*); do
 done
 
 
-################################################ SOFTWARE SETTINGS ################################################
+################################################ SOFTWARE INSTALLATION ################################################
 
 log_stdout "Downloading necessary software for INSinPAL environment."
+
+
+###################### SINGULARITY ######################
+
 
 # Check for singularity
 log_stdout "Checking for singularity bin."
@@ -175,7 +185,9 @@ else
 fi
 
 
-# INSurVeyor
+###################### INSURVEYOR 1.1.2 ######################
+
+
 # DIrectory path for software
 PROGS_DIR="resources/singularity"
 log_stdout "Downloading INSurVeyor singularity image from https://github.com/kensung-lab/INSurVeyor/releases/download/1.1.2/insurveyor.sif"
@@ -193,7 +205,9 @@ else
 fi
 
 
-# Manta
+###################### MANTA 1.6.0 ######################
+
+
 log_stdout "Downloading Manta binary distribution from https://github.com/Illumina/manta/releases/download/v1.6.0/manta-1.6.0.centos6_x86_64.tar.bz2."
 # Directory path for software
 MANTA_DIR="$PROGS_DIR"/"manta/1.6.0/"
@@ -222,7 +236,9 @@ else
 fi
 
 
-# Basil
+###################### BASIL 1.2.0 ######################
+
+
 log_stdout "Building Basil singularity image."
 # Directory path to software
 BASIL_DIR="$PROGS_DIR"/"Anis-Basil/1.2.0"
@@ -237,7 +253,9 @@ else
 fi
 
 
-# AnnotSV
+###################### ANNOTSV 3.4.2 ######################
+
+
 log_stdout "Downloading AnnotSV code source from "$URL"."
 # Directory path to software
 ANNOTSV_DIR="$PROGS_DIR"/"AnnotSV/3.4"
@@ -281,3 +299,6 @@ fi
 
 
 ############################################### TEST ################################################
+
+
+# Snakemake dry-run
