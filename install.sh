@@ -79,7 +79,7 @@ fi
 
 
 # Reference genome hg19 masked repeat region from UCSC ftp
-log_stdout "Downloading reference genome hg19 with repeat masked regions."
+log_stdout "Downloading reference genome hg19 with masked repeat regions."
 # Set up downlading DIR
 mkdir -p resources/data/Genome/hg19/chromosomes
 PATH_DATA_HG19="resources/data/Genome/hg19"
@@ -266,9 +266,12 @@ fi
 
 log_stdout "Building code source for AnnotSV."
 # Binary ditribution directory
-BUILD_DIR="$ANNOTSV_DIR"/"AnnotSV-3.4.2"
+BUILD_DIR="$ANNOTSV_DIR"/"AnnotSV"
+# Rename folder
+mv "$ANNOTSV_DIR"/"AnnotSV-3.4.2" "$BUILD_DIR"
 
-if $(cd "$BUILD_DIR" && make PREFIX=. install && make PREFIX=. install-human-annotation)
+# Build and capture exit code
+if cd "$BUILD_DIR" && make DESTDIR= PREFIX=. install && make DESTDIR= PREFIX=. install-human-annotation
 then
 	log_stdout "AnnotSV was successfully built to "$BUILD_DIR"."
 else
