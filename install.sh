@@ -227,7 +227,8 @@ log_stdout "Building Basil singularity image."
 # Directory path to software
 BASIL_DIR="$PROGS_DIR"/"Anis-Basil/1.2.0"
 
-if $(singularity build "$BASIL_DIR"/"anisebasil.sif" "$BASIL_DIR"/"Anise_Basil_1_2_0.def")
+# Build anisebasil.sif if image not present
+if [[ -f "$BASIL_DIR"/"anisebasil.sif" ]] || $(singularity build "$BASIL_DIR"/"anisebasil.sif" "$BASIL_DIR"/"Anise_Basil_1_2_0.def")
 then
 	log_stdout "Basil singularity image was successfully built in "$BASIL_DIR"."
 else
