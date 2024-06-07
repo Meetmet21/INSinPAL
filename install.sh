@@ -54,7 +54,7 @@ then
         log_stdout ""$SNK_ENV_NAME" environment is already present."
 
 # Build INSinPAL conda environment then
-elif $(conda env create --file=resources/conda/environment.yml)
+elif $(conda env create --quiet --yes --file resources/conda/environment.yml &> /dev/null)
 then
         log_stdout ""$SNK_ENV_NAME" environment was successfully created."
 else
