@@ -24,7 +24,7 @@ See ![DAG of jobs](./doc/dag.pdf) for workflow rules structure and/or read the [
 
 * Python2 and 3
 * Conda == 24.1.2
-* Singularity == 3.2.0-1
+* Singularity == 3.2.0
 * Make
 * Linux-based machine
 
@@ -46,8 +46,13 @@ INSinPAL is a type of metacaller using three different SV callers and requires a
 
 To set up the INSinPAL environment, one can use the `install.sh` bash file to download all required files and software if all the requirements are met.
 ```bash
+# Clone this repo
 git clone git@github.com:Meetmet21/INSinPAL.git
+# Go to working directory
 cd INSinPAL
+# Use sudo privelge to build singularity images
+sudo singularity build resources/singularity/Anis-Basil/1.2.0/anisebasil.sif resources/singularity/Anis-Basil/1.2.0/Anise_Basil_1_2_0.def
+# Run remaining installation steps
 bash install.sh
 ```
 Note that, the `config/parameters.py` lists all the paths necessary for Snakemake to work. If one wants to change data sources 

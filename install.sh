@@ -244,11 +244,11 @@ log_stdout "Building Basil singularity image."
 BASIL_DIR="$PROGS_DIR"/"Anis-Basil/1.2.0"
 
 # Build anisebasil.sif if image not present
-if [[ -f "$BASIL_DIR"/"anisebasil.sif" ]] || $(singularity build "$BASIL_DIR"/"anisebasil.sif" "$BASIL_DIR"/"Anise_Basil_1_2_0.def")
+if [[ -f "$BASIL_DIR"/"anisebasil.sif" ]]
 then
 	log_stdout "Basil singularity image was successfully built in "$BASIL_DIR"."
 else
-	log_error "Basil singularity image couldn't be build."
+	log_error "Basil singularity image is not present, please use the following command:\nsudo singularity build "$BASIL_DIR"/anisebasil.sif "$BASIL_DIR"/Anise_Basil_1_2_0.def."
 	exit 1
 fi
 
