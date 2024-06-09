@@ -7,6 +7,8 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
+###################### PARSE CL ARGUMENTS ######################
+
 # No arguments given
 if [[ "$#" -eq 0 ]]
 then
@@ -27,7 +29,6 @@ help() {
 SAMPLE_ID=
 SAMPLE_PATH=
 
-# Parse Command-line arguments
 while [[ "$#" -gt 0 ]]; do
 	case $1 in
 		-s|--sample)
@@ -59,55 +60,67 @@ then
 	echo "ERROR: You must set the -s/--sample and/or -p/--path argument."
 	exit 1
 fi
+
+
 ############################################### FUNCTIONS ###############################################
+
 
 # Print error message
 log_error() {
-	echo 'Launch-run Error: '"$1" >&2
+	echo "######"
+	echo -e 'Error: '"$1" >&2
 }
 
 # Print log message
 log_stdout() {
-	echo "Launch-run: ""$1""."
+	echo "###########"
+	echo -e "Launch-run: ""$1""."
 }
 
 
-# Grep the available BAM file name and remove pattern
-SAMPLE=$(basename "$DIR_BAM" | sed "s/.genome.bam//")
+############################################### MAIN PROGRAM ###############################################
 
-log_stdout "Preparing "$SAMPLE" run..."
+
+log_stdout "Preparing "$SAMPLE_ID" run with "$SAMPLE_PATH" file.""
 
 # Snakemake config file
-path_config_file="$PWD""/config/config.yaml"
-# New sample name and path in snakemake config file
-if ! $(sed -r -i -e "s|^[[:space:]]+[^:]+|  "$SAMPLE"|" -e "s|[^:]+$| "$DIR_BAM"|" "$path_config_file")
-then
-	log_error "sed command error with main config file"
-	exit 1
-fi
+CONFIG="config/config.yaml"
 
-log_stdout "Modifing Snakemake config file"
+# New sample name and path in snakemake config file
+if ! $(sed -r -i -e "s|^[[:space:]]+[^:]+|  "$SAMPLE_ID"|" -e "s|[^:]+$| "$SAMPLE_PATH"|" "$CONFIG")
+then
+	log_error "sed command error with main config file. Couldn't change "$CONFIG" file with new sample ID and path.""
+	exit 1
+else
+	log_stdout "Changing sample ID and path in "$CONFIG"."
+fi
 
 # Snakemake profile config file 
-lsf_config="$PWD""/workflow/profile/config.yaml"
+CONFIG_LSF="workflow/profile/config.yaml"
+
 # LSF log file name for new sample
-if ! $(sed -r -i -e "s|lsf.*\.err|lsf_"$SAMPLE".err|" -e "s|lsf.*\.out|lsf_"$SAMPLE".out|" "$lsf_config")
+if ! $(sed -r -i -e "s|lsf.*\.err|lsf_"$SAMPLE_ID".err|" -e "s|lsf.*\.out|lsf_"$SAMPLE_ID".out|" "$CONFIG_LSF")
 then
-	log_error "sed command error with lsf config file"
+	log_error "sed command error with lsf config file IN "$CONFIG_LSF"."
+	exit 1
+else
+	log_stdout "Modifing Snakemake config file for LSF log file names."
+fi
+
+# Activate Conda env
+ENV="INSinPAL"
+
+if $(source activate "$ENV")
+then
+	log_stdout "Activaiting "$ENV" Conda environment."
+else
+	log_error "Couldn't acitvate "$ENV" with Conda."
 	exit 1
 fi
 
-log_stdout "Modifing workflow config file"
-
-# Activate snakemake env
-source activate snakemake
-
-log_stdout "Activating Conda snakemake"
-
 # Dry run pipeline for sample
-snakemake --profile workflow/profile -n > logs/dry_runs/"$SAMPLE"_dry_run.txt
-
-log_stdout "Running dry-run for "$SAMPLE""
+log_stdout "Running dry-run for "$SAMPLE_ID" with Snakemake. TXT dry_run in logs/dry_runs/"$SAMPLE_ID".txt"
+snakemake --profile workflow/profile -n | tee logs/dry_runs/"$SAMPLE_ID".txt
 
 # Pipeline running in screen session
 screen -S pipeline -X stuff "\rsnakemake --profile workflow/profile --rerun-triggers mtime\n"

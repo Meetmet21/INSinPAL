@@ -189,7 +189,7 @@ fi
 
 
 # DIrectory path for software
-PROGS_DIR="resources/singularity"
+PROGS_DIR="resources/progs"
 log_stdout "Downloading INSurVeyor singularity image from https://github.com/kensung-lab/INSurVeyor/releases/download/1.1.2/insurveyor.sif"
 # DIrectory path for iNSurVeyor
 INSURVEYOR_DIR="$PROGS_DIR"/"INSurVeyor/1.1.2/"
@@ -289,7 +289,7 @@ BUILD_DIR="$ANNOTSV_DIR"/"AnnotSV"
 mv "$ANNOTSV_DIR"/"AnnotSV-3.4.2" "$BUILD_DIR"
 
 # Build and capture exit code
-if cd "$BUILD_DIR" && make DESTDIR= PREFIX=. install && make DESTDIR= PREFIX=. install-human-annotation
+if $(cd "$BUILD_DIR" && make DESTDIR= PREFIX=. install && make DESTDIR= PREFIX=. install-human-annotation)
 then
 	log_stdout "AnnotSV was successfully built to "$BUILD_DIR"."
 else
