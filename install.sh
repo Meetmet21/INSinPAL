@@ -113,6 +113,15 @@ else
         exit 1
 fi
 
+log_stdout "Generating indexed hg19 fasta file."
+
+if [[ samtools faidx "${PATH_DATA_HG19}"/"${HG19_FASTA_NAME%.gz}" ]]
+then
+	log_stdout "hg19 fasta file was successfully indexed."
+else
+	log_error "hg19 fasta file couldn't be indexed."
+	exit 1
+fi
 
 ###################### REFERENCE GENOME hg19 PER CHROMOSOME ######################
 
@@ -210,7 +219,7 @@ fi
 
 log_stdout "Downloading Manta binary distribution from https://github.com/Illumina/manta/releases/download/v1.6.0/manta-1.6.0.centos6_x86_64.tar.bz2."
 # Directory path for software
-MANTA_DIR="$PROGS_DIR"/"manta/1.6.0/"
+MANTA_DIR="$PROGS_DIR"/"Manta/1.6.0/"
 mkdir -p "$MANTA_DIR"
 URL="https://github.com/Illumina/manta/releases/download/v1.6.0/manta-1.6.0.centos6_x86_64.tar.bz2"
 
