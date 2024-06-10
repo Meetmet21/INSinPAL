@@ -24,7 +24,7 @@ class Progs:
 
     def __init__(self):
         # Path to progs directory containing all the external software.
-        self.path_Progs_dir = join(MAIN_DIR, "resources/singularity")
+        self.path_Progs_dir = join(MAIN_DIR, "resources/progs")
 
         # SV callers used to call Insertions in WGS.
         self.names = ["insurveyor", "manta", "basil"]
@@ -99,7 +99,7 @@ class Data:
                                     for chr in self.chrom}
 
         # REFERENCE MEIs sequence fasta for SCRAMble
-        self.meis_ref = ("/scratch/DMGL/SMG-mesehir/stage_hug/Palindrome/Progs/scramble-MEI-detection""/MEI_consensus_seqs_SCRAMble_plus_MOBSTER.fa")
+        self.meis_ref = join(self.path_data_dir, "MEI_consensus_seqs_SCRAMble_plus_MOBSTER.fa")
 
 
 class WorkFlowPaths:
