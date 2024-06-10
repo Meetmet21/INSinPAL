@@ -40,7 +40,7 @@ rule mine_palindromes_by_chr:
     palindromic regions in hg19.
     """
     input:
-        chr_fa=data.hg19_fa_chromosomes
+        chr_fa=lamda wildcards: data.hg19_fa_chromosomes.get(wildcards.chromosomes)
     output:
         temp("palindromes_{chr}.bed")
     params:

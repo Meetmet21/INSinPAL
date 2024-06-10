@@ -70,7 +70,7 @@ bash run_analysis.sh --help
 bash run_analysis.sh --sample SAMPLE_ID --path SAMPLE_BAM
 ```
 Note that, `SAMPLE_ID` should not contain any sepecial characters except underscores and `SAMPLE_PATH` should lead to the absolute path
-of a BAM and respective BAI file.
+of a BAM and respective BAI file. Check the [template config.yaml](config/config.yaml) for an example.
 
 For each analysis, if `run_analysis.sh` is used, logs related to rules are stored in `workflow/logs/sample_ID/` and the 
 ones related to LSF jobs are stored in `logs/` with dry runs for a given sample in `logs/dry_runs/`.

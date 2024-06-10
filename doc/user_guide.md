@@ -151,7 +151,7 @@ Another module attempts to compute the length of the inserted sequence based on 
 
 ### Input/Output
 
-INSinPAL takes **a mapped paired-read data (BAM)** file and a **sample ID** to be specified in the `config/config.yaml` file.
+INSinPAL takes **a mapped paired-read data (BAM)** file with corresponding **BAI** and a **sample ID**, to be specified in the `config/config.yaml` file, as input.
 
-The output is a fully annotated Excel file located in the `results/sample_id/` directory. Additionally, BED files containing calls made by each caller in palindromic fragile sites will be also present. Finally, a `sample_id_full_annot.bed` file is provided containing output of INSinPAL befaore extra-annotation by AnnotSV with the following header: `Chrom_name Start Stop SV-type SV-size MEI-annot Source-instered-sequence Pal-type Pal-size Spacer-size Mismatch-rate AT% Recomb-score`.
+The output is a fully annotated Excel file located in the `results/sample_id/` directory. Additionally, BED files containing calls made by each caller in palindromic fragile sites will be also present. Finally, a `sample_id_full_annot.bed` file is provided containing output of INSinPAL before extra-annotation by AnnotSV with the following header: `Chrom_name Start Stop SV-type SV-size MEI-annot Source-instered-sequence Pal-type Pal-size Spacer-size Mismatch-rate AT% Recomb-score`.
 

@@ -95,8 +95,8 @@ class Data:
         self.hg19_fa = join(self.path_data_dir, "Genome/hg19/genome_PAR_masked.fasta")
         # hg19 fasta sequence by chromosome
         self.chrom = [str(val) for val in range(1, 23)] + ["X", "Y"]
-        self.hg19_fa_chromosomes = [join(self.path_data_dir, "Genome/hg19/chromosomes", f"{chr}.fa")
-                                    for chr in self.chrom]
+        self.hg19_fa_chromosomes = {chr: join(self.path_data_dir, "Genome/hg19/chromosomes", f"{chr}.fa")
+                                    for chr in self.chrom}
 
         # REFERENCE MEIs sequence fasta for SCRAMble
         self.meis_ref = ("/scratch/DMGL/SMG-mesehir/stage_hug/Palindrome/Progs/scramble-MEI-detection""/MEI_consensus_seqs_SCRAMble_plus_MOBSTER.fa")
