@@ -306,8 +306,11 @@ SAMPLE_ID="NA24385"
 SAMPLE_PATH="test/NA24385.bam"
 # Expected output from INSinPAL
 OUTFILE="results/"${SAMPLE_ID}"/"${SAMPLE_ID}".xlsx"
+
 log_stdout "Running test with sample ID: "${SAMPLE_ID}" and sample path: "${SAMPLE_PATH}"."
 
+# Generate BAI file for test sampel
+samtools index -b "${SAMPLE_PATH}"
 # Run analysis with run_analysis.sh
 bash run_analysis.sh --sample "${SAMPLE_ID}" --path "${SAMPLE_PATH}"
 
