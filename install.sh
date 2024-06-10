@@ -300,5 +300,21 @@ fi
 
 ############################################### TEST ################################################
 
+# Sample ID from GIAB
+SAMPLE_ID="NA24385"
+# Sample BAM path
+SAMPLE_PATH="test/NA24385.bam"
+# Expected output from INSinPAL
+OUTFILE="results/"${SAMPLE_ID}"/"${SAMPLE_ID}".xlsx"
+log_stdout "Running test with sample ID: "${SAMPLE_ID}" and sample path: "${SAMPLE_PATH}"."
 
-# Snakemake dry-run
+# Run analysis with run_analysis.sh
+bash run_analysis.sh --sample "${SAMPLE_ID}" --path "${SAMPLE_PATH}"
+
+# Check if exit code worked
+if [[ $? -eq 0 ]] || [[ -f "${OUTFILE}" ]]
+then
+	log_stdout "Tests are successfully completed and INSinPAL is fully installed."
+else
+	log_error "Tests didn't work well."
+fi
