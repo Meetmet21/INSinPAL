@@ -289,7 +289,7 @@ BUILD_DIR="$ANNOTSV_DIR"/"AnnotSV"
 mv "$ANNOTSV_DIR"/"AnnotSV-3.4.2" "$BUILD_DIR"
 
 # Build and capture exit code
-if $(cd "$BUILD_DIR" && make DESTDIR= PREFIX=. install && make DESTDIR= PREFIX=. install-human-annotation)
+if $(cd "$BUILD_DIR" && make DESTDIR= PREFIX=. install &> /dev/null && make DESTDIR= PREFIX=. install-human-annotation &> /dev/null)
 then
 	log_stdout "AnnotSV was successfully built to "$BUILD_DIR"."
 else
