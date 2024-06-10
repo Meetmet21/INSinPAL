@@ -90,7 +90,7 @@ PATH_DATA_HG19="resources/data/Genome/hg19"
 HG19_FASTA_NAME="genome_PAR_masked.fasta.gz"
 URL="https://hgdownload.soe.ucsc.edu/goldenPath/hg19/bigZips/hg19.fa.masked.gz"
 
-if [[ -f "$PATH_DATA_HG19"/"$HG19_FASTA_NAME" ]] || $(curl -o "$PATH_DATA_HG19"/"$HG19_FASTA_NAME" "$URL")
+if [[ -f "$PATH_DATA_HG19"/"$HG19_FASTA_NAME" ]] || $(curl --output "$PATH_DATA_HG19"/"$HG19_FASTA_NAME" "$URL")
 then
         log_stdout "hg19 reference genome was successfully downloaded to "$PATH_DATA_HG19" from UCSC ftp."
 else
@@ -103,9 +103,9 @@ fi
 if [[ -f "$PATH_DATA_HG19"/${HG19_FASTA_NAME%.gz} ]]
 then
         log_stdout "hg19 reference genome successfully uncompressed."
-	# Remove tar file
+		# Remove tar file
         rm "$PATH_DATA_HG19"/"$HG19_FASTA_NAME"
-elif $(gunzip -d "$PATH_DATA_HG19"/"$HG19_FASTA_NAME")
+elif $(gunzip --uncompress "$PATH_DATA_HG19"/"$HG19_FASTA_NAME")
 then
         log_stdout "hg19 reference genome was successfully uncompressed."
 else
@@ -123,7 +123,7 @@ log_stdout "Data acquisition: reference genome fasta per chromosome."
 HG19_CHROMOSOMES="chromosomes.tar.gz"
 URL="https://hgdownload.soe.ucsc.edu/goldenPath/hg19/bigZips/chromFaMasked.tar.gz"
 
-if [[ -f "$PATH_DATA_HG19"/chromosomes/"$HG19_CHROMOSOMES" ]] || $(curl -o "$PATH_DATA_HG19"/chromosomes/"$HG19_CHROMOSOMES" "$URL")
+if [[ -f "$PATH_DATA_HG19"/chromosomes/"$HG19_CHROMOSOMES" ]] || $(curl --output "$PATH_DATA_HG19"/chromosomes/"$HG19_CHROMOSOMES" "$URL")
 then
         log_stdout "hg19 reference genome chromosomes have been downloaded to "$PATH_DATA_HG19"/chromosomes from UCSC ftp."
 else
@@ -152,7 +152,7 @@ for file in $(ls "$PATH_DATA_HG19"/chromosomes/*); do
 	# Get filename
 	filename=$(basename "$file")
 	# Remove contig, alternative chr files and Mitochondrial file
-	if [[ $(grep -cP "chr.+_" "$file") -eq 1 ]] || [[ $(grep -cP "chrM" "$file") -eq 1 ]];
+	if [[ $(grep --count --perl-regexp "chr.+_" "$file") -eq 1 ]] || [[ $(grep --count "chrM" "$file") -eq 1 ]];
 	then
 		rm "$file"
 	else
@@ -239,7 +239,7 @@ fi
 ###################### BASIL 1.2.0 ######################
 
 
-log_stdout "Checking for anisebasil.sif singularity image in resources/singularity/Anis-Basil/1.2.0."
+log_stdout "Checking for anisebasil.sif singularity image in "$PROGS_DIR"/Anis-Basil/1.2.0."
 # Directory path to software
 BASIL_DIR="$PROGS_DIR"/"Anis-Basil/1.2.0"
 
