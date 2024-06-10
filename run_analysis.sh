@@ -109,14 +109,8 @@ fi
 
 # Activate Conda env
 ENV="INSinPAL"
-
-if $(source activate "$ENV")
-then
-	log_stdout "Activaiting "$ENV" Conda environment."
-else
-	log_error "Couldn't acitvate "$ENV" with Conda."
-	exit 1
-fi
+log_stdout "Activaiting "$ENV" Conda environment."
+source activate "${ENV}"
 
 # Dry run pipeline for sample
 log_stdout "Running snakemake dry-run for "$SAMPLE_ID". TXT dry_run is in logs/dry_runs/"$SAMPLE_ID".txt"
