@@ -115,7 +115,7 @@ fi
 
 log_stdout "Generating indexed hg19 fasta file."
 
-if [[ samtools faidx "${PATH_DATA_HG19}"/"${HG19_FASTA_NAME%.gz}" ]]
+if $(samtools faidx "${PATH_DATA_HG19}"/"${HG19_FASTA_NAME%.gz}")
 then
 	log_stdout "hg19 fasta file was successfully indexed."
 else
