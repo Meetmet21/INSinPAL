@@ -232,7 +232,7 @@ if __name__ == "__main__":
     # Merge overlapping palindromes
     cleared_palindromes = unique_palindromes(palindromes)
 
-    with open({output_file}, "w") as file:
+    with open(output_file, "w") as file:
         # add palindrome type information
         type = ""
         # First pal border is inclusive and 0 based

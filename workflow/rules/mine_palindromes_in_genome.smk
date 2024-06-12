@@ -79,7 +79,7 @@ rule merge_pal_chr_together:
     input:
         expand("tmp_dir/filtered_{chr}.bed", chr=data.chrom)
     output:
-        join(paths.resources, "filtered_hg19_genome_palindromes.bed"),
+        join(paths.resources, "data/palindromes/filtered_hg19_genome_palindromes.bed"),
     shell:
         "cat {input} >> {output}; "
         "rm -rf tmp_dir"
@@ -94,7 +94,7 @@ rule select_size_pal_for_SV_filtering:
     input:
         rules.merge_pal_chr_together.output
     output:
-        join(paths.resources, "Recombinogenic_palindromes_bysize.bed")
+        join(paths.resources, "data/palindromes/Recombinogenic_palindromes_bysize.bed")
     params:
         # Size factor levels: '0-50 bp', '51-99 bp', '100-200 bp', '>200 bp'
         size_to_keep="100-200 bp\|>200 bp"

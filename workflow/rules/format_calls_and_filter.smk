@@ -66,7 +66,7 @@ rule INS_in_pal_regions:
     increase the number of mappable sites. 
     """
     input:
-        pal=join(paths.resources, "Recombinogenic_palindromes_bysize.bed"),
+        pal=join(paths.resources, "data/palindromes/Recombinogenic_palindromes_bysize.bed"),
         ins_bed=rules.vcf_to_bed.output
     output:
         temp("{sample}.{progs}.Pal.bed")

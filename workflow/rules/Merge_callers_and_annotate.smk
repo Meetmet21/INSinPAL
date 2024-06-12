@@ -126,7 +126,7 @@ rule add_palindrome_annotation:
     """
     input:
         tmp=rules.find_insertion_size.output,
-        pal_annot=join(paths.resources, "Recombinogenic_palindromes_bysize.bed")
+        pal_annot=join(paths.resources, "data/palindromes/Recombinogenic_palindromes_bysize.bed")
     output:
         join(paths.results, "{sample}/{sample}_full_annot.bed")
     conda:
