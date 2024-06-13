@@ -67,9 +67,9 @@ class Progs:
 
         # Path to SCRAMble. Used to call MEIs in sample.
         self.scramble_version = "1.0.2"
-        self.scramble_sif = "SCRAMble.ubuntu20.sif"
-        self.scramble_dir = "scramble-MEI-detection"
-        self.scramble = join(self.path_Progs_dir, self.scramble_dir, self.scramble_sif)
+        self.scramble_sif = "scramble.sif"
+        self.scramble_dir = "scramble"
+        self.scramble = join(self.path_Progs_dir, self.scramble_dir, self.scramble_version, self.scramble_sif)
         self.cluster_analysis = "/app/cluster_analysis/bin/SCRAMble.R"
 
         # Path to python 2.7 for Manta.
@@ -92,7 +92,7 @@ class Data:
 
         # REFERENCE GENOME
         # reference genome with masked regions and decoys
-        self.hg19_fa = join(self.path_data_dir, "Genome/hg19/genome_PAR_masked.fasta")
+        self.hg19_fa = join(self.path_data_dir, "Genome/hg19/genome.fasta")
         # hg19 fasta sequence by chromosome
         self.chrom = [str(val) for val in range(1, 23)] + ["X", "Y"]
         self.hg19_fa_chromosomes = {chr: join(self.path_data_dir, "Genome/hg19/chromosomes", f"{chr}.fa")

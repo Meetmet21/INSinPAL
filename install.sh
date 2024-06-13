@@ -87,7 +87,7 @@ log_stdout "Downloading reference genome hg19 with masked repeat regions."
 mkdir -p resources/data/Genome/hg19/chromosomes
 PATH_DATA_HG19="resources/data/Genome/hg19"
 # Final file name
-HG19_FASTA_NAME="genome_PAR_masked.fasta.gz"
+HG19_FASTA_NAME="genome.fasta.gz"
 URL="https://hgdownload.soe.ucsc.edu/goldenPath/hg19/bigZips/hg19.fa.masked.gz"
 
 if [[ -f "$PATH_DATA_HG19"/"$HG19_FASTA_NAME" ]] || $(curl --output "$PATH_DATA_HG19"/"$HG19_FASTA_NAME" "$URL")
@@ -262,11 +262,20 @@ else
 fi
 
 
-###################### SCRAMBLE 3.4.2 ######################
+###################### SCRAMBLE 1.0.2 ######################
 
 
-log_stdout "
+SCRAMBLE_DIR="${PROGS_DIR}"/"scramble/1.0.2"
+log_stdout "Checking for scramble.sif singularity image in "${SCRAMBLE_DIR}"."
 
+# Build scramble.sif if image not present
+if [[ -f "${SCRAMBLE_DIR}"/"scramble.sif" ]]
+then
+	log_stdout "SCRAMBle singularity image was successfully located in "${SCRAMBLE_DIR}"."
+else
+	log_error "SCRAMBle singularity image is not present, please use the following command:\nsudo singularity build "$SCRAMBLE_DIR"/scramble.sif "$SCRAMBLE_DIR"/scramble.def."
+	exit 1
+fi
 
 
 ###################### ANNOTSV 3.4.2 ######################
