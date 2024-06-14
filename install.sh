@@ -98,7 +98,6 @@ else
         exit 1
 fi
 
-
 # Uncompress reference genome OR skip if already exists
 if [[ -f "$PATH_DATA_HG19"/${HG19_FASTA_NAME%.gz} ]]
 then
@@ -111,6 +110,14 @@ then
 else
         log_error "hg19 reference genome couldn't be uncompressed by gunzip."
         exit 1
+fi
+
+log_stdout "Rename contigs from chr1 to 1 for callers."
+
+if ! $(sed -i "s/chr//g" "${PATH_DATA_HG19}"/"${HG19_FASTA_NAME%.gz}")
+then
+	log_error "Couldn't change the contig names with sed."
+	exit 1
 fi
 
 log_stdout "Generating indexed hg19 fasta file."

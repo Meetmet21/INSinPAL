@@ -47,12 +47,23 @@ INSinPAL is a type of metacaller using three different SV callers and requires a
 To set up the INSinPAL environment, one can use the `install.sh` bash file to download all required files and software if all the requirements are met.
 ```bash
 # Clone this repo
+
 git clone git@github.com:Meetmet21/INSinPAL.git
+
 # Go to working directory
+
 cd INSinPAL
-# Use sudo privelge to build singularity images
-sudo singularity build resources/singularity/Anis-Basil/1.2.0/anisebasil.sif resources/singularity/Anis-Basil/1.2.0/Anise_Basil_1_2_0.def
+
+# Use sudo privelge to build singularity images for Basil and SCRAMBle
+
+sudo singularity build resources/singularity/Anis-Basil/1.2.0/anisebasil.sif \
+resources/singularity/Anis-Basil/1.2.0/Anise_Basil_1_2_0.def
+
+sudo singularity build resources/singularity/scramble/1.0.2/scramble.sif \
+resources/singularity/scramble/1.0.2/scramble.def
+
 # Run remaining installation steps
+
 bash install.sh
 ```
 Note that, the `config/parameters.py` lists all the paths necessary for Snakemake to work. If one wants to change data sources 
