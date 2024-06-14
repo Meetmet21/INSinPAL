@@ -82,15 +82,15 @@ fi
 
 
 # Reference genome hg19 masked repeat region from UCSC ftp
-log_stdout "Downloading reference genome hg19 with masked repeat regions."
+log_stdout "Downloading reference genome hg19 (GRCh37.p13) with masked repeat regions."
 # Set up downlading DIR
 mkdir -p resources/data/Genome/hg19/chromosomes
 PATH_DATA_HG19="resources/data/Genome/hg19"
 # Final file name
-HG19_FASTA_NAME="genome.fasta.gz"
-URL="https://hgdownload.soe.ucsc.edu/goldenPath/hg19/bigZips/hg19.fa.masked.gz"
+HG19_FASTA_NAME="genome.masked.fasta"
+URL="https://hgdownload.soe.ucsc.edu/goldenPath/hg19/bigZips/latest/hg19.fa.masked.gz"
 
-if [[ -f "$PATH_DATA_HG19"/"$HG19_FASTA_NAME" ]] || $(curl --output "$PATH_DATA_HG19"/"$HG19_FASTA_NAME" "$URL")
+if $(curl --output "$PATH_DATA_HG19"/"$HG19_FASTA_NAME".gz "$URL")
 then
         log_stdout "hg19 reference genome was successfully downloaded to "$PATH_DATA_HG19" from UCSC ftp."
 else
@@ -99,12 +99,7 @@ else
 fi
 
 # Uncompress reference genome OR skip if already exists
-if [[ -f "$PATH_DATA_HG19"/${HG19_FASTA_NAME%.gz} ]]
-then
-        log_stdout "hg19 reference genome successfully uncompressed."
-		# Remove tar file
-        rm "$PATH_DATA_HG19"/"$HG19_FASTA_NAME"
-elif $(gunzip --uncompress "$PATH_DATA_HG19"/"$HG19_FASTA_NAME")
+if $(gunzip --uncompress "$PATH_DATA_HG19"/"$HG19_FASTA_NAME".gz)
 then
         log_stdout "hg19 reference genome was successfully uncompressed."
 else
@@ -114,7 +109,7 @@ fi
 
 log_stdout "Rename contigs from chr1 to 1 for callers."
 
-if ! $(sed -i "s/chr//g" "${PATH_DATA_HG19}"/"${HG19_FASTA_NAME%.gz}")
+if ! $(sed -i "s/chr//g" "${PATH_DATA_HG19}"/"${HG19_FASTA_NAME}")
 then
 	log_error "Couldn't change the contig names with sed."
 	exit 1
@@ -122,7 +117,7 @@ fi
 
 log_stdout "Generating indexed hg19 fasta file."
 
-if $(samtools faidx "${PATH_DATA_HG19}"/"${HG19_FASTA_NAME%.gz}")
+if $(samtools faidx "${PATH_DATA_HG19}"/"${HG19_FASTA_NAME}")
 then
 	log_stdout "hg19 fasta file was successfully indexed."
 else
@@ -137,9 +132,9 @@ fi
 log_stdout "Data acquisition: reference genome fasta per chromosome."
 # Rename tar to
 HG19_CHROMOSOMES="chromosomes.tar.gz"
-URL="https://hgdownload.soe.ucsc.edu/goldenPath/hg19/bigZips/chromFaMasked.tar.gz"
+URL="https://hgdownload.soe.ucsc.edu/goldenPath/hg19/bigZips/latest/hg19.chromFaMasked.tar.gz"
 
-if [[ -f "$PATH_DATA_HG19"/chromosomes/"$HG19_CHROMOSOMES" ]] || $(curl --output "$PATH_DATA_HG19"/chromosomes/"$HG19_CHROMOSOMES" "$URL")
+if $(curl --output "$PATH_DATA_HG19"/chromosomes/"$HG19_CHROMOSOMES" "$URL")
 then
         log_stdout "hg19 reference genome chromosomes have been downloaded to "$PATH_DATA_HG19"/chromosomes from UCSC ftp."
 else

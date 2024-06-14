@@ -15,6 +15,7 @@ INSinPAL Snakemake workflow will proceed as following:
  - Format VCFs to BEDs and annotate for MEIs, putative inserted sequences source and size.
  - An additional step for BAM formatting exists if mate score tags are absent, needed for INSurVeyo caller.
 
+
 ### Documentation
 
 See ![DAG of jobs](./doc/dag.pdf) for workflow rules structure and/or read the [user guide](./doc/user_guide.md) detailed information about the workflow as biological concepts, input/output formats, etc...
@@ -29,6 +30,7 @@ See ![DAG of jobs](./doc/dag.pdf) for workflow rules structure and/or read the [
 * Linux-based machine
 
 Note that, INSinPAL was not tested for requirements versions lower or higher than the ones cited above.
+
 
 ## Getting Started
 
@@ -69,7 +71,8 @@ bash install.sh
 Note that, the `config/parameters.py` lists all the paths necessary for Snakemake to work. If one wants to change data sources 
 such as the reference genome, they should also update this file to the correct paths. Moreover, the default cluster profile 
 is set to LSF in `workflow/profile/lsf-status.py` and needs to be change if one wants to submit jobs on SLURM. Finally, the 
-`workflow/profile/config.yaml` file sets Snakemake's default parameters and can be changed if needed.
+`workflow/profile/config.yaml` file sets Snakemake's default parameters and can be changed if needed (cluster job submission related parameters are fixed in this file).
+
 
 ## Usage
 
@@ -85,6 +88,7 @@ of a BAM and respective BAI file. Check the [template config.yaml](config/config
 
 For each analysis, if `run_analysis.sh` is used, logs related to rules are stored in `workflow/logs/sample_ID/` and the 
 ones related to LSF jobs are stored in `logs/` with dry runs for a given sample in `logs/dry_runs/`.
+
 
 ## Contact
 
