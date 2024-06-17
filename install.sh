@@ -107,9 +107,9 @@ else
         exit 1
 fi
 
-log_stdout "Rename contigs from chr1 to 1 for callers."
+log_stdout "Rename contigs from >chr1 to >1 in reference genome."
 
-if ! $(sed -i "s/^chr//g" "${PATH_DATA_HG19}"/"${HG19_FASTA_NAME}")
+if ! $(sed --in-place --regexp-extended "/^>/ s/chr//g" "${PATH_DATA_HG19}"/"${HG19_FASTA_NAME}")
 then
 	log_error "Couldn't change the contig names with sed."
 	exit 1
@@ -160,13 +160,13 @@ fi
 log_stdout "Rename chromosomes files from chr1.fa.masked to 1.fa and remove unnecessary fasta files."
 
 mv "$PATH_DATA_HG19"/chromosomes/maskedChroms/* "$PATH_DATA_HG19"/chromosomes/ && \
-rm -rf mv "$PATH_DATA_HG19"/chromosomes/maskedChroms
+rm -rf "$PATH_DATA_HG19"/chromosomes/maskedChroms
 
 for file in $(ls "$PATH_DATA_HG19"/chromosomes/*); do
 	# Get filename
 	filename=$(basename "$file")
 	# Remove contig, alternative chr files and Mitochondrial file
-	if [[ $(grep --count --perl-regexp "chr.+_" "$file") -eq 1 ]] || [[ $(grep --count "chrM" "$file") -eq 1 ]];
+	if [[ $(grep --count --perl-regexp "chr.+_" "$file") -eq 1 ]] || [[ $(grep --count "chrM" "$file") -eq 1 ]]
 	then
 		rm "$file"
 	else
