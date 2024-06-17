@@ -145,6 +145,7 @@ dependencies:
   - rpds-py=0.18.0=py311h46250e7_0
   - rsa=4.9=pyhd8ed1ab_0
   - s3transfer=0.10.1=pyhd8ed1ab_0
+  - samtools=1.19.2
   - setuptools=69.2.0=pyhd8ed1ab_0
   - setuptools-scm=8.0.4=pyhd8ed1ab_0
   - six=1.16.0=pyh6c4a22f_0
