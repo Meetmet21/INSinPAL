@@ -59,10 +59,10 @@ cd INSinPAL
 # Use sudo privelge to build singularity images for Basil and SCRAMBle
 
 sudo singularity build resources/progs/Anis-Basil/1.2.0/anisebasil.sif \
-resources/singularity/Anis-Basil/1.2.0/Anise_Basil_1_2_0.def
+resources/progs/Anis-Basil/1.2.0/Anise_Basil_1_2_0.def
 
 sudo singularity build resources/progs/scramble/1.0.2/scramble.sif \
-resources/singularity/scramble/1.0.2/scramble.def
+resources/progs/scramble/1.0.2/scramble.def
 
 # Run remaining installation steps
 
