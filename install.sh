@@ -88,7 +88,7 @@ mkdir -p resources/data/Genome/hg19/chromosomes
 PATH_DATA_HG19="resources/data/Genome/hg19"
 # Final file name
 HG19_FASTA_NAME="genome.masked.fasta"
-URL="https://hgdownload.soe.ucsc.edu/goldenPath/hg19/bigZips/latest/hg19.fa.masked.gz"
+URL="https://hgdownload.soe.ucsc.edu/goldenPath/hg19/bigZips/initial/hg19.fa.masked.gz"
 
 if $(curl --output "$PATH_DATA_HG19"/"$HG19_FASTA_NAME".gz "$URL")
 then
@@ -132,7 +132,7 @@ fi
 log_stdout "Data acquisition: reference genome fasta per chromosome."
 # Rename tar to
 HG19_CHROMOSOMES="chromosomes.tar.gz"
-URL="https://hgdownload.soe.ucsc.edu/goldenPath/hg19/bigZips/latest/hg19.chromFaMasked.tar.gz"
+URL="https://hgdownload.soe.ucsc.edu/goldenPath/hg19/bigZips/initial/chromFa.tar.gz"
 
 if $(curl --output "$PATH_DATA_HG19"/chromosomes/"$HG19_CHROMOSOMES" "$URL")
 then
@@ -158,9 +158,6 @@ fi
 
 # Rename chromosomes files to 1.fa instead of chr1.fa and remove files mathcing alternative alleles or MT
 log_stdout "Rename chromosomes files from chr1.fa.masked to 1.fa and remove unnecessary fasta files."
-
-mv "$PATH_DATA_HG19"/chromosomes/maskedChroms/* "$PATH_DATA_HG19"/chromosomes/ && \
-rm -rf "$PATH_DATA_HG19"/chromosomes/maskedChroms
 
 for file in $(ls "$PATH_DATA_HG19"/chromosomes/*); do
 	# Get filename

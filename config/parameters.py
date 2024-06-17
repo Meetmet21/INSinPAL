@@ -92,7 +92,7 @@ class Data:
 
         # REFERENCE GENOME
         # reference genome with masked regions and decoys
-        self.hg19_fa = join(self.path_data_dir, "Genome/hg19/genome.fasta")
+        self.hg19_fa = join(self.path_data_dir, "Genome/hg19/genome.masked.fasta")
         # hg19 fasta sequence by chromosome
         self.chrom = [str(val) for val in range(1, 23)] + ["X", "Y"]
         self.hg19_fa_chromosomes = {chr: join(self.path_data_dir, "Genome/hg19/chromosomes", f"{chr}.fa")
