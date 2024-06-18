@@ -19,6 +19,7 @@ workflow/logs/*
 
 # Except test bam file in test folder
 !test/*.bam
+!test/*.bam.bai
 
 # Ignore all files within result and resource folder
 results/*
