@@ -330,12 +330,16 @@ fi
 
 
 # Ask user for test or not with a test sample
-read -p "Do you want to run a test with HG00096 sample from 1k genomes phase 3 data ? (y/n)" -n 1 ANS
-if [[ "$ANS" == "n" ]]
-then
-	log_stdout "INSinPAL is successfully downloaded and set."
-	exit 0
-fi
+while true; do
+	read -p "Do you want to run a test with HG00096 sample from 1k genomes phase 3 data ? (y/n)" -n 1 ANS
+	case $ANS in
+		[Yy] ) log_stdout "Running test.."
+			break;;
+		[nN] ) log_stdout "INSinPAL is successfully installed."
+			exit 0;;
+		* ) echo "Invalid response";;
+	esac
+done
 
 # Sample ID from GIAB
 SAMPLE_ID="HG00096"
