@@ -46,7 +46,7 @@ INSinPAL is a type of metacaller using three different SV callers and requires a
   * [GRCh37 chromosomes](https://hgdownload.soe.ucsc.edu/goldenPath/hg19/bigZips/chromFaMasked.tar.gz)
   * [MEIs reference sequences](resources/data/MEI_consensus_seqs_SCRAMble_plus_MOBSTER.fa)
 
-To set up the INSinPAL environment, one can use the `install.sh` bash file to download all required files and software if all the requirements are met.
+To set up the INSinPAL environment, one can use the `install.sh` bash file to download all required files and software.
 ```bash
 # Clone this repo
 

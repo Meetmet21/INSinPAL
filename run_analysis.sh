@@ -87,7 +87,7 @@ log_stdout "Preparing "$SAMPLE_ID" run with "$SAMPLE_PATH" file."
 CONFIG="config/config.yaml"
 
 # New sample name and path in snakemake config file
-if ! $(sed --regexp-extended --in-place -e "s|^[[:space:]]+[^:]+|  "$SAMPLE_ID"|" -e "s|[^:]+$| "$SAMPLE_PATH"|" "$CONFIG")
+if ! sed --regexp-extended --in-place -e "s|^[[:space:]]+[^:]+|  "$SAMPLE_ID"|" -e "s|[^:]+$| "$SAMPLE_PATH"|" "$CONFIG"
 then
 	log_error "sed command error with main config file. Couldn't change "$CONFIG" file with new sample ID and path."
 	exit 1
@@ -99,7 +99,7 @@ fi
 CONFIG_LSF="workflow/profile/config.yaml"
 
 # LSF log file name for new sample
-if ! $(sed --regexp-extended --in-place -e "s|lsf.*\.err|lsf_"$SAMPLE_ID".err|" -e "s|lsf.*\.out|lsf_"$SAMPLE_ID".out|" "$CONFIG_LSF")
+if ! sed --regexp-extended --in-place -e "s|lsf.*\.err|lsf_"$SAMPLE_ID".err|" -e "s|lsf.*\.out|lsf_"$SAMPLE_ID".out|" "$CONFIG_LSF"
 then
 	log_error "sed command error with lsf config file in "$CONFIG_LSF"."
 	exit 1

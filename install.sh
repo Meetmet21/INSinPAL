@@ -109,6 +109,7 @@ fi
 
 # Remove alternate haplotypes as they cause caller shut down
 log_stdout "Remove alternative haplotypes from hg19."
+
 awk 'BEGIN {FS=">"; OFS="\n"} NR>1 && $1!~/*._hap/ {print ">"$0}' tmp > "${PATH_DATA_HG19}"/"${HG19_FASTA_NAME}"
 
 log_stdout "Rename contigs from >chr1 to >1 in reference genome."
@@ -327,10 +328,40 @@ fi
 
 ############################################### TEST ################################################
 
+
+# Ask user for test or not with a test sample
+read -p "Do you want to run a test with HG00096 sample from 1k genomes phase 3 data ? (y/n)" -n 1 ANS
+if [[ "$ANS" == "n" ]]
+then
+	log_stdout "INSinPAL is successfully downloaded and set."
+	exit 0
+fi
+
 # Sample ID from GIAB
-SAMPLE_ID="NA24385"
+SAMPLE_ID="HG00096"
 # Sample BAM path
-SAMPLE_PATH="test/NA24385.bam"
+SAMPLE_PATH="$PWD"/"$SAMPLE_ID".bam
+
+log_stdout "Downloading HG00096.bam and bai."
+
+# Download HG00096 BAM nd BAI from 1k genome ftp
+URL="https://ftp.1000genomes.ebi.ac.uk/vol1/ftp/phase3/data/HG00096/alignment/HG00096.mapped.ILLUMINA.bwa.GBR.low_coverage.20120522.bam"
+
+if ! curl --output "$SAMPLE_PATH" "$URL"
+then
+	log_error "Couldn't download HG00096.bam from 1k genome ftp."
+	exit 1
+fi
+
+# BAI
+URL="https://ftp.1000genomes.ebi.ac.uk/vol1/ftp/phase3/data/HG00096/alignment/HG00096.mapped.ILLUMINA.bwa.GBR.low_coverage.20120522.bam.bai"
+
+if ! curl --output "$SAMPLE_PATH".bai "$URL"
+then
+	log_error "Couldn't download HG00096.bam.bai from 1k genome ftp."
+	exit 1
+fi
+
 # Expected output from INSinPAL
 OUTFILE="results/"${SAMPLE_ID}"/"${SAMPLE_ID}".xlsx"
 
