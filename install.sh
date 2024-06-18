@@ -90,7 +90,7 @@ PATH_DATA_HG19="resources/data/Genome/hg19"
 HG19_FASTA_NAME="genome.masked.fasta"
 URL="https://hgdownload.soe.ucsc.edu/goldenPath/hg19/bigZips/initial/hg19.fa.masked.gz"
 
-if curl --output "$PATH_DATA_HG19"/"$HG19_FASTA_NAME".gz "$URL"
+if curl --output tmp.gz "$URL"
 then
         log_stdout "hg19 reference genome was successfully downloaded to "$PATH_DATA_HG19" from UCSC ftp."
 else
@@ -99,7 +99,7 @@ else
 fi
 
 # Uncompress reference genome OR skip if already exists
-if gunzip --uncompress "$PATH_DATA_HG19"/"$HG19_FASTA_NAME".gz
+if gunzip --uncompress tmp.gz
 then
         log_stdout "hg19 reference genome was successfully uncompressed."
 else
@@ -107,23 +107,18 @@ else
         exit 1
 fi
 
+# Remove alternate haplotypes as they cause caller shut down
+log_stdout "Remove alternative haplotypes from hg19."
+awk 'BEGIN {FS=">"; OFS="\n"} NR>1 && $1!~/*._hap/ {print ">"$0}' tmp > "${PATH_DATA_HG19}"/"${HG19_FASTA_NAME}"
+
 log_stdout "Rename contigs from >chr1 to >1 in reference genome."
 
-if ! sed --in-place --regexp-extended "/^>/ s/chr//g" "${PATH_DATA_HG19}"/"${HG19_FASTA_NAME}"
+if ! sed --in-place --regexp-extended -e "/^>/ s/chr//g" -e "/^>/ s/>M/>MT/" "${PATH_DATA_HG19}"/"${HG19_FASTA_NAME}"
 then
 	log_error "Couldn't change the contig names with sed."
 	exit 1
 fi
 
-log_stdout "Generating indexed hg19 fasta file."
-
-if samtools faidx "${PATH_DATA_HG19}"/"${HG19_FASTA_NAME}"
-then
-	log_stdout "hg19 fasta file was successfully indexed."
-else
-	log_error "hg19 fasta file couldn't be indexed."
-	exit 1
-fi
 
 ###################### REFERENCE GENOME hg19 PER CHROMOSOME ######################
 
