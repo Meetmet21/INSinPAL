@@ -110,7 +110,8 @@ fi
 # Remove alternate haplotypes as they cause caller shut down
 log_stdout "Remove alternative haplotypes from hg19."
 
-awk 'BEGIN {FS=">"; OFS="\n"} $0!~/hap/ {print $0}' tmp > "${PATH_DATA_HG19}"/"${HG19_FASTA_NAME}"
+awk 'BEGIN {RS=">"; ORS=""; FS="\n"; } NR>1 && $1!~/hap/ {print ">"$0}' tmp > "${PATH_DATA_HG19}"/"${HG19_FASTA_NAME}"
+rm tmp
 
 log_stdout "Rename contigs from >chr1 to >1 in reference genome."
 if ! sed --in-place --regexp-extended -e "/^>/ s/chr//g" -e "/^>/ s/>M/>MT/" "${PATH_DATA_HG19}"/"${HG19_FASTA_NAME}"
@@ -123,7 +124,7 @@ fi
 if samtools faidx "${PATH_DATA_HG19}"/"${HG19_FASTA_NAME}"
 then
 	log_stdout "hg19 fasta file was successfully indexed."
-else
+fi
 
 
 ###################### REFERENCE GENOME hg19 PER CHROMOSOME ######################
@@ -356,28 +357,26 @@ log_stdout "Downloading HG00096.bam and bai."
 # Download HG00096 BAM nd BAI from 1k genome ftp
 URL="https://ftp.1000genomes.ebi.ac.uk/vol1/ftp/phase3/data/HG00096/alignment/HG00096.mapped.ILLUMINA.bwa.GBR.low_coverage.20120522.bam"
 
-if ! curl --output "$SAMPLE_PATH" "$URL"
-then
-	log_error "Couldn't download HG00096.bam from 1k genome ftp."
-	exit 1
-fi
+#if ! curl --output "$SAMPLE_PATH" "$URL"
+#then
+#	log_error "Couldn't download HG00096.bam from 1k genome ftp."
+#	exit 1
+#fi
 
 # BAI
 URL="https://ftp.1000genomes.ebi.ac.uk/vol1/ftp/phase3/data/HG00096/alignment/HG00096.mapped.ILLUMINA.bwa.GBR.low_coverage.20120522.bam.bai"
 
-if ! curl --output "$SAMPLE_PATH".bai "$URL"
-then
-	log_error "Couldn't download HG00096.bam.bai from 1k genome ftp."
-	exit 1
-fi
+#if ! curl --output "$SAMPLE_PATH".bai "$URL"
+#then
+#	log_error "Couldn't download HG00096.bam.bai from 1k genome ftp."
+#	exit 1
+#fi
 
 # Expected output from INSinPAL
 OUTFILE="results/"${SAMPLE_ID}"/"${SAMPLE_ID}".xlsx"
 
 log_stdout "Running test with sample ID: "${SAMPLE_ID}" and sample path: "${SAMPLE_PATH}"."
 
-# Generate BAI file for test sampel
-samtools index -b "${SAMPLE_PATH}"
 # Run analysis with run_analysis.sh
 bash run_analysis.sh --sample "${SAMPLE_ID}" --path "${SAMPLE_PATH}"
 
