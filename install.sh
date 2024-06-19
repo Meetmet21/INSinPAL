@@ -110,15 +110,20 @@ fi
 # Remove alternate haplotypes as they cause caller shut down
 log_stdout "Remove alternative haplotypes from hg19."
 
-awk 'BEGIN {FS=">"; OFS="\n"} NR>1 && $1!~/*._hap/ {print ">"$0}' tmp > "${PATH_DATA_HG19}"/"${HG19_FASTA_NAME}"
+awk 'BEGIN {FS=">"; OFS="\n"} $0!~/hap/ {print $0}' tmp > "${PATH_DATA_HG19}"/"${HG19_FASTA_NAME}"
 
 log_stdout "Rename contigs from >chr1 to >1 in reference genome."
-
 if ! sed --in-place --regexp-extended -e "/^>/ s/chr//g" -e "/^>/ s/>M/>MT/" "${PATH_DATA_HG19}"/"${HG19_FASTA_NAME}"
 then
 	log_error "Couldn't change the contig names with sed."
 	exit 1
 fi
+
+# Index fasta file
+if samtools faidx "${PATH_DATA_HG19}"/"${HG19_FASTA_NAME}"
+then
+	log_stdout "hg19 fasta file was successfully indexed."
+else
 
 
 ###################### REFERENCE GENOME hg19 PER CHROMOSOME ######################
@@ -381,5 +386,6 @@ if [[ $? -eq 0 ]] && [[ -f "${OUTFILE}" ]]
 then
 	log_stdout "Tests are successfully completed and INSinPAL is fully installed."
 else
-	log_error "Tests didn't work well."
+	log_error "Test didn't work well."
+	exit 1
 fi
