@@ -81,16 +81,17 @@ fi
 ###################### REFERENCE GENOME hg19 FULL SEQUENCE ######################
 
 
-# Reference genome hg19 masked repeat region from UCSC ftp
-log_stdout "Downloading reference genome hg19 (GRCh37.p13) with masked repeat regions."
+# Reference genome hg19 masked repeat region from UCSC ftp with patches
+# with the UCSC hg19 chrM "NC_001807" sequence and GenBank revised chrMT "NC_012920" sequence by Cambridge Reference Sequence.
+log_stdout "Downloading reference genome hg19 (GRCh37.p13 + MT) with masked repeat regions."
 # Set up downlading DIR
 mkdir -p resources/data/Genome/hg19/chromosomes
 PATH_DATA_HG19="resources/data/Genome/hg19"
 # Final file name
 HG19_FASTA_NAME="genome.masked.fasta"
-URL="https://hgdownload.soe.ucsc.edu/goldenPath/hg19/bigZips/initial/hg19.fa.masked.gz"
+URL="https://hgdownload.soe.ucsc.edu/goldenPath/hg19/bigZips/p13.plusMT/hg19.p13.plusMT.fa.gz"
 
-if curl --output tmp.gz "$URL"
+if wget --timestamping --quiet -O tmp.gz "$URL"
 then
         log_stdout "hg19 reference genome was successfully downloaded to "$PATH_DATA_HG19" from UCSC ftp."
 else
@@ -107,14 +108,14 @@ else
         exit 1
 fi
 
-# Remove alternate haplotypes as they cause caller shut down
+# Remove alternate haplotypes and loci, fix loci and keeps only the rCRS MT as they cause caller shut down
 log_stdout "Remove alternative haplotypes from hg19."
 
-awk 'BEGIN {RS=">"; ORS=""; FS="\n"; } NR>1 && $1!~/hap/ {print ">"$0}' tmp > "${PATH_DATA_HG19}"/"${HG19_FASTA_NAME}"
+awk 'BEGIN {RS=">"; ORS=""; FS="\n"; } (NR>1 && $1!~/hap/ && $1!~/fix/ && $1!~/alt/ && $1!="chrM") {print ">"$0}' tmp > "${PATH_DATA_HG19}"/"${HG19_FASTA_NAME}"
 rm tmp
 
 log_stdout "Rename contigs from >chr1 to >1 in reference genome."
-if ! sed --in-place --regexp-extended -e "/^>/ s/chr//g" -e "/^>/ s/>M/>MT/" "${PATH_DATA_HG19}"/"${HG19_FASTA_NAME}"
+if ! sed --in-place --regexp-extended -e "/^>/ s/chr//g" "${PATH_DATA_HG19}"/"${HG19_FASTA_NAME}"
 then
 	log_error "Couldn't change the contig names with sed."
 	exit 1
@@ -136,7 +137,7 @@ log_stdout "Data acquisition: reference genome fasta per chromosome."
 HG19_CHROMOSOMES="chromosomes.tar.gz"
 URL="https://hgdownload.soe.ucsc.edu/goldenPath/hg19/bigZips/initial/chromFa.tar.gz"
 
-if curl --output "$PATH_DATA_HG19"/chromosomes/"$HG19_CHROMOSOMES" "$URL"
+if wget --timestamping --quiet -O "$PATH_DATA_HG19"/chromosomes/"$HG19_CHROMOSOMES" "$URL"
 then
         log_stdout "hg19 reference genome chromosomes have been downloaded to "$PATH_DATA_HG19"/chromosomes from UCSC ftp."
 else
@@ -209,7 +210,7 @@ INSURVEYOR_DIR="$PROGS_DIR"/"INSurVeyor/1.1.2/"
 mkdir -p "$INSURVEYOR_DIR"
 URL="https://github.com/kensung-lab/INSurVeyor/releases/download/1.1.2/insurveyor.sif"
 
-if wget --quiet --directory-prefix "$INSURVEYOR_DIR" "$URL"
+if wget --timestamping --quiet --directory-prefix "$INSURVEYOR_DIR" "$URL"
 then
 	log_stdout "INSurVeyor was successfully donwloaded to "$INSURVEYOR_DIR"."
 else
@@ -227,7 +228,7 @@ MANTA_DIR="$PROGS_DIR"/"Manta/1.6.0/"
 mkdir -p "$MANTA_DIR"
 URL="https://github.com/Illumina/manta/releases/download/v1.6.0/manta-1.6.0.centos6_x86_64.tar.bz2"
 
-if wget --quiet --directory-prefix "$MANTA_DIR" "$URL"
+if wget --timestamping --quiet --directory-prefix "$MANTA_DIR" "$URL"
 then
 	log_stdout "Manta 1.6.0 binary distribution was successfully downloaded to "$MANTA_DIR"."
 else
@@ -292,7 +293,7 @@ URL="https://github.com/lgmgeo/AnnotSV/archive/refs/tags/v3.4.2.tar.gz"
 # Set directory tree
 mkdir -p "$ANNOTSV_DIR"
 
-if wget --quiet --directory-prefix "$ANNOTSV_DIR" "$URL"
+if wget --timestamping --quiet --directory-prefix "$ANNOTSV_DIR" "$URL"
 then
 	log_stdout "AnnotSV code source was succesfully downloaded to "$ANNOTSV_DIR"."
 else
@@ -357,7 +358,7 @@ log_stdout "Downloading HG00096.bam and bai."
 # Download HG00096 BAM nd BAI from 1k genome ftp
 URL="https://ftp.1000genomes.ebi.ac.uk/vol1/ftp/phase3/data/HG00096/alignment/HG00096.mapped.ILLUMINA.bwa.GBR.low_coverage.20120522.bam"
 
-#if ! curl --output "$SAMPLE_PATH" "$URL"
+#if ! wget --timestamping --quiet -O "$SAMPLE_PATH" "$URL"
 #then
 #	log_error "Couldn't download HG00096.bam from 1k genome ftp."
 #	exit 1
@@ -366,7 +367,7 @@ URL="https://ftp.1000genomes.ebi.ac.uk/vol1/ftp/phase3/data/HG00096/alignment/HG
 # BAI
 URL="https://ftp.1000genomes.ebi.ac.uk/vol1/ftp/phase3/data/HG00096/alignment/HG00096.mapped.ILLUMINA.bwa.GBR.low_coverage.20120522.bam.bai"
 
-#if ! curl --output "$SAMPLE_PATH".bai "$URL"
+#if ! wget -timestamping --quiet -O "$SAMPLE_PATH".bai "$URL"
 #then
 #	log_error "Couldn't download HG00096.bam.bai from 1k genome ftp."
 #	exit 1
