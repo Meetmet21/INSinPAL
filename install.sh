@@ -135,7 +135,7 @@ fi
 log_stdout "Data acquisition: reference genome fasta per chromosome."
 # Rename tar to
 HG19_CHROMOSOMES="chromosomes.tar.gz"
-URL="https://hgdownload.soe.ucsc.edu/goldenPath/hg19/bigZips/initial/chromFa.tar.gz"
+URL="https://hgdownload.soe.ucsc.edu/goldenPath/hg19/bigZips/latest/hg19.chromFa.tar.gz"
 
 if wget --timestamping --quiet -O "$PATH_DATA_HG19"/chromosomes/"$HG19_CHROMOSOMES" "$URL"
 then
@@ -153,6 +153,8 @@ then
         log_stdout "Chromosomes have been untared."
         # Remove tar file
         rm "$PATH_DATA_HG19"/chromosomes/"$HG19_CHROMOSOMES"
+        # Etract files from tar dir to target dir
+        mv "$PATH_DATA_HG19"/chromosomes/chroms/* "$PATH_DATA_HG19"/chromosomes && rm -rf "$PATH_DATA_HG19"/chromosomes/chroms
 else
         log_error "Untar process has failed with tar."
         exit 1
@@ -160,7 +162,7 @@ fi
 
 
 # Rename chromosomes files to 1.fa instead of chr1.fa and remove files mathcing alternative alleles or MT
-log_stdout "Rename chromosomes files from chr1.fa.masked to 1.fa and remove unnecessary fasta files."
+log_stdout "Rename chromosomes files from chr1.fa to 1.fa and remove unnecessary fasta files."
 
 for file in $(ls "$PATH_DATA_HG19"/chromosomes/*); do
 	# Get filename
@@ -172,7 +174,6 @@ for file in $(ls "$PATH_DATA_HG19"/chromosomes/*); do
 	else
 		# Change file name from chr1.fa.masked to 1.fa
 		newname=${filename#chr}
-		newname=${newname%.masked}
 		# Change name in directory
 		mv "$file" "$PATH_DATA_HG19"/chromosomes/"$newname"
 	fi
