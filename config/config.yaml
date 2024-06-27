@@ -1,2 +1,5 @@
+---
+# Samples ID as key and Samples BAM path as value in Samples dictionnary.
+# Each nested dictionnary in Samples correspond to one sample to analyze.
 samples:
-  NA_12878-A: /data/DMGL/SMG-mesehir-data/TEST/NA_12878-A.WGS.bam
+  sample_id: sample_path

@@ -8,7 +8,7 @@ Modify the config/config.yaml to add new sample:
 samples:
     sample_id: sample_path_to_BAM (index in the same directory)
 
-This Snakemake pipeline only run one sample at the time.
+This Snakemake workflow only run one sample at the time.
 """
 
 # MODULES
@@ -43,17 +43,26 @@ rule all:
 
 # MODULAR RULES in order of execution within the workflow.
 # Format the input BAM for INSurVeyor caller.
-include: join(paths.rules, "bam_to_fixmate_sort.smk")
+include: join(paths.rules, "add_mate_score_tags.smk")
+
 # Call insertions with different callers.
 include: join(paths.rules, "call_INS_SVs.smk")
+
 # Mine palindromes within the hg19 ref genome and select the recombinogenic ones.
 # Data in resources folder to keep to avoid rule running for all samples.
 include: join(paths.rules, "mine_palindromes_in_genome.smk")
-# Annotation and formatting of resulting vcf files from callers.
-include: join(paths.rules, "format_calls_and_filter.smk")
-# Second step of annotations with merging different callers output.
-# Producing the final excel file.
-include: join(paths.rules, "Merge_callers_and_annotate.smk")
+
+# Select insertions mapping into fragile palindromic sites.
+include: join(paths.rules, "select_interesting_INS.smk")
+
+# Annotate MEis and source of inserted sequence.
+include: join(paths.rules, "annotate_MEIs_sourceINS.smk")
+
+# Merge Callers annotated BEDs into one and remove duplicates.
+include: join(paths.rules, "merge_callers.smk")
+
+# Estimate inserted sequence size and AnnotSV + final xml file
+include: join(paths.rules, "estimate_size_annotsv.smk")
 
 onsuccess:
     print("The pipeline was fully completed.")

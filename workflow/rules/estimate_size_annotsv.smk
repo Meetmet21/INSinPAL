@@ -2,10 +2,6 @@
 :Author: Mehmet Sehir
 :Date: 15.05.2024
 
-This is the merging step to constitute a Metacaller for large Insertions in WGS data within unstable palindromic regions.
-The merge is done by concating all three INS BED files (Three callers) and removing breakpoints that overlaps in a window
-of 50 bp.
-
 Another purpose of this pipeline, is to estimate the inserted sequence length through the Source annotation done before.
 For this, via the breakpoint, Source field in INS BED merged and sample BAM, the aim is to extract discordant reads
 mapping the edges of the inserted sequence in a given breakpoint. Then, by subtracting the reverse and forward reads
@@ -32,45 +28,7 @@ paths = parameters.WorkFlowPaths()
 progs = parameters.Progs()
 data = parameters.Data()
 
-localrules: concat_SV_bed, merge_close_breakpoints, find_insertion_size, set_user_defined_header, add_header_to_bed, AnnotSV, final_xml_file
-
-rule concat_SV_bed:
-    """
-    Simple concatenation of each caller INS BED file.
-    fields:
-        - Chr
-        - Start
-        - Stop
-        - SV type
-        - SV size
-        - MEI type
-        - Source
-    """
-    input:
-        expand(join(paths.results, "{{sample}}/{{sample}}.{progs}.Pal.MEIS.source.bed"),
-            progs=progs.names)
-    output:
-        temp("{sample}.merged.bed")
-    shell:
-        "cat {input} >> tmp; "
-        "sort -V tmp > {output}; "
-        "rm tmp"
-
-rule merge_close_breakpoints:
-    """
-    To avoid duplicate events, after concatenating files, merge close breakpoints.
-    """
-    input:
-        rules.concat_SV_bed.output
-    output:
-        temp("{sample}.merged.modup.bed")
-    conda:
-        join(paths.envs, "python_base.yaml")
-    params:
-        # Window in which breakpoints are merged
-        window = 50
-    script:
-        join(paths.scripts, "remove_duplicates_from_merged.py")
+localrules: find_insertion_size, set_user_defined_header, add_header_to_bed, AnnotSV, final_xml_file
 
 rule find_insertion_size:
     """
@@ -86,7 +44,7 @@ rule find_insertion_size:
     WGS data, it worked well.
     """
     input:
-        bed=rules.merge_close_breakpoints.output,
+        bed="{sample}.merged.modup.bed",
         bam=join(paths.results, "{sample}/{sample}.bam"),
         bai=join(paths.results,"{sample}/{sample}.bam.bai")
     output:
