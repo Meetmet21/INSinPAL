@@ -13,6 +13,8 @@ import sys
 from os.path import join
 
 # PARAMETER FILE
+# This path is relative to where snakemake is executed
+# In this case : INSinPAL/
 sys.path.append("config/")
 import parameters
 
@@ -45,7 +47,7 @@ rule sort_bam_by_name:
     shell:
         "samtools sort -n -@ {threads} -O BAM -o {output.sorted_bam} {input.bam}"
 
-rule fixmate_bam:
+rule add_fixmate_tags:
     """
     Add mate score tags to BAM.
     """
@@ -60,12 +62,12 @@ rule fixmate_bam:
     shell:
         "samtools fixmate -m -@ {threads} -O BAM {input.names_sorted} {output.fixmate_bam}"
 
-rule sort_final_bam_by_coordinates:
+rule sort_bam_by_coordinates:
     """
     Resort to coordinates.
     """
     input:
-        fixmate_bam = rules.fixmate_bam.output.fixmate_bam
+        fixmate_bam = rules.add_fixmate_tags.output.fixmate_bam
     output:
         formatted_bam = temp(join(paths.results, "{sample}/{sample}.bam"))
     conda:
@@ -80,9 +82,9 @@ rule index_final_bam:
     Index the final BAM file.
     """
     input:
-        final_bam=rules.sort_final_bam_by_coordinates.output.formatted_bam
+        final_bam=rules.sort_bam_by_coordinates.output.formatted_bam
     output:
-        bai=temp(rules.sort_final_bam_by_coordinates.output.formatted_bam + ".bai")
+        bai=temp(rules.sort_bam_by_coordinates.output.formatted_bam + ".bai")
     conda:
         join(paths.envs, "mapping.yaml")
     threads: 12

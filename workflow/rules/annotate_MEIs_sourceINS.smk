@@ -18,9 +18,9 @@ import parameters
 # Path to pipeline main directory directories
 paths = parameters.WorkFlowPaths()
 
-localrules: meis_to_bed, annotate_MEIS_part1, annotate_MEIS_part2, annotate_source_INS
+localrules: scramble_tsv_to_bed, annotate_MEIS_part1, annotate_MEIS_part2, annotate_source_INS
 
-rule meis_to_bed:
+rule scramble_tsv_to_bed:
     """
     Extract from SCRAMble final result only interesting fields which are in this case:
         - Chr name
@@ -43,7 +43,7 @@ rule annotate_MEIS_part1:
     """
     input:
         bed="{sample}.{progs}.Pal.bed",
-        MEIS=rules.meis_to_bed.output
+        MEIS=rules.scramble_tsv_to_bed.output
     output:
         annotated_bed=temp("{sample}.{progs}.Pal.bed.tmp")
     params:

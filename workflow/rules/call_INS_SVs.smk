@@ -11,9 +11,10 @@ import sys
 from os.path import join, realpath, dirname
 
 # PARAMETER FILE
+# Relative to snakemake execution dir
 sys.path.append("config/")
 import parameters
-# Path to pipeline main directory directories
+# Path to pipeline main directories
 paths = parameters.WorkFlowPaths()
 # PAth to callers
 caller = parameters.Progs()
@@ -218,7 +219,7 @@ rule split_clusters_by_chr:
         "grep -E '^{params.chr}:' {input.clusters} > {output.out}"
 
 
-rule scramble_cluster_analysis:
+rule scramble_cluster_analysis_by_chr:
     """
     Launch SCRAMble analysis for each chromosome on the cluster.
     """
