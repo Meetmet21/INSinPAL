@@ -1,3 +1,4 @@
+[![Snakemake](https://img.shields.io/badge/snakemake-≥7.32.1-brightgreen.svg?style=flat)](https://snakemake.readthedocs.io)
 
 # INSinPAL: Large Insertion Detection in Palindromic Fragile Sites
 
