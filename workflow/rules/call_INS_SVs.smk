@@ -6,23 +6,6 @@ From sample in config file, call SVs with 3 software: INSurVeyor, Manta and Basi
 Additionally, screen for MEIs in sample with SCRAMble by splitting per chromosome to enable parallelization.
 """
 
-# MODULES
-import sys
-from os.path import join, realpath, dirname
-
-# PARAMETER FILE
-# Relative to snakemake execution dir
-sys.path.append("config/")
-import parameters
-# Path to pipeline main directories
-paths = parameters.WorkFlowPaths()
-# PAth to callers
-caller = parameters.Progs()
-# Path to reference genome
-data = parameters.Data()
-
-configfile: join(paths.config, "config.yaml")
-
 # local rules
 localrules: call_SVs_manta_configure, filter_basil_vcf, split_clusters_by_chr, get_scramble_header, merge_scramble_calls
 
@@ -60,9 +43,6 @@ rule call_INS_insurveyor:
         "tee {log} 2>&1; "
         "bcftools view -O v -o {output.vcf} {params.working_dir}/out.pass.vcf.gz"
 
-# Extract path bam file
-def get_path_sample_from_config(wildcards):
-    return config["samples"][wildcards.sample]
 
 # Call SVs with manta (To be filtred after)
 # First set the configuration directory and files

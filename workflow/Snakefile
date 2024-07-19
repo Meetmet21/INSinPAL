@@ -13,7 +13,7 @@ This Snakemake workflow only run one sample at the time.
 
 # MODULES
 import sys
-from os.path import join
+from os.path import join, realpath, dirname
 
 # MIN SNAKEMAKE
 from snakemake.utils import min_version
@@ -26,6 +26,11 @@ import parameters
 
 # Path to pipeline main directory directories
 paths = parameters.WorkFlowPaths()
+# PAth to callers
+caller = parameters.Progs()
+# Path to reference genome
+data = parameters.Data()
+
 
 # CONFIG FILE
 configfile: join(paths.config, "config.yaml")
@@ -37,9 +42,12 @@ localrules: all
 # Generate main final file -> {sample}.xlsx which is an excel file containing filtered INS calls with annotations.
 rule all:
     input:
-        expand(join(paths.results, "{sample}/{sample}.xlsx"),
-            sample=config["samples"])
+        expand(join(paths.results, "{sample}/{sample}.xlsx"), sample=list(config["samples"]))
     default_target: True
+
+# Extract path bam file
+def get_path_sample_from_config(wildcards):
+    return config["samples"][wildcards.sample]
 
 # MODULAR RULES in order of execution within the workflow.
 # Format the input BAM for INSurVeyor caller.

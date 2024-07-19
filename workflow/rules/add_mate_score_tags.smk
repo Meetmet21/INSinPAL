@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 """
 :Author: Mehmet Sehir
 :Date: 14.05.2024
@@ -8,36 +6,12 @@ Set of rules related to BAM formatting. Final purpose is to add MC tags to BAMs 
 it doesn't work.
 """
 
-# MODULES
-import sys
-from os.path import join
-
-# PARAMETER FILE
-# This path is relative to where snakemake is executed
-# In this case : INSinPAL/
-sys.path.append("config/")
-import parameters
-
-# Path to pipeline main directory directories
-paths = parameters.WorkFlowPaths()
-
-# CONFIG file
-configfile: join(paths.config, "config.yaml")
-
-def get_path_sample_from_config(wildcards):
-    """
-    Access to sample WGS data path from config file.
-    :param wildcards:
-    :return:
-    """
-    return config["samples"][wildcards.sample]
-
 rule sort_bam_by_name:
     """
     Sort BAM by QNAMW for downstream formatting.
     """
     input:
-        bam = get_path_sample_from_config
+        get_path_sample_from_config
     output:
         sorted_bam = temp("{sample}.sortedname.bam")
     conda:
@@ -45,7 +19,7 @@ rule sort_bam_by_name:
     threads: 12
     shadow: "full"
     shell:
-        "samtools sort -n -@ {threads} -O BAM -o {output.sorted_bam} {input.bam}"
+        "samtools sort -n -@ {threads} -O BAM -o {output.sorted_bam} {input}"
 
 rule add_fixmate_tags:
     """

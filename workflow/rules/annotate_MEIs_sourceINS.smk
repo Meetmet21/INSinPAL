@@ -8,16 +8,6 @@ breakpoints overlapping with putative unstable palindromic regions.
     - Putative source of insertion in ref via the extraction of discordant reads around beakpoint
 """
 
-# MODULES
-import sys
-from os.path import join
-
-# PARAMETER FILE
-sys.path.append("config/")
-import parameters
-# Path to pipeline main directory directories
-paths = parameters.WorkFlowPaths()
-
 localrules: scramble_tsv_to_bed, annotate_MEIS_part1, annotate_MEIS_part2, annotate_source_INS
 
 rule scramble_tsv_to_bed:

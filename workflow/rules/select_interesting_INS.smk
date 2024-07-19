@@ -5,16 +5,6 @@
 Few rules to change a VCF into a SV BED file, where only SV INS are kept with a size of 50 bp at least.
 """
 
-# MODULES
-import sys
-from os.path import join
-
-# PARAMETER FILE
-sys.path.append("config/")
-import parameters
-# Path to pipeline main directory directories
-paths = parameters.WorkFlowPaths()
-
 localrules: vcf_to_bed, INS_in_pal_regions
 
 rule vcf_to_bed:

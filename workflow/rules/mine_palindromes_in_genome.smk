@@ -12,17 +12,6 @@ is extracted (0 based). Then, a few step of filtering are performed to keep only
  the literature: "Long inverted repeats in eukaryotic genomes: Recombinogenic motifs determine genomic plasticity"
 """
 
-# MODULES
-import sys
-from os.path import join
-
-# PARAMETER FILE
-sys.path.append("config/")
-import parameters
-# Path to pipeline main directory directories
-paths = parameters.WorkFlowPaths()
-data = parameters.Data()
-
 localrules: select_size_pal_for_SV_filtering
 
 rule mine_palindromes_by_chr:

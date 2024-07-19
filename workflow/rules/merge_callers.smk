@@ -6,19 +6,6 @@ This is the merging step to constitute a Metacaller for large Insertions in WGS 
 The merge is done by concating all three INS BED files (Three callers) and removing breakpoints that overlaps in a window of 50 bp.
 """
 
-# MODULES
-import sys
-from os.path import join
-
-# PARAMETER FILE
-sys.path.append("config/")
-import parameters
-
-# Path to pipeline main directory directories
-paths = parameters.WorkFlowPaths()
-progs = parameters.Progs()
-data = parameters.Data()
-
 localrules: concat_SV_bed, merge_close_breakpoints
 
 rule concat_SV_bed:
@@ -34,7 +21,7 @@ rule concat_SV_bed:
         - Source
     """
     input:
-        expand(join(paths.results, "{{sample}}/{{sample}}.{progs}.Pal.MEIS.source.bed"), progs=progs.names) 
+        expand(join(paths.results, "{{sample}}/{{sample}}.{progs}.Pal.MEIS.source.bed"), progs=caller.names)
     output:
         temp("{sample}.merged.bed")
     shell:

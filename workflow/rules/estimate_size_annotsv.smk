@@ -15,19 +15,6 @@ contect. Then, annotation of each event is done via AnnotSV and an excel file is
 TODO: Add frequencies via the local database of Insertion events.
 """
 
-# MODULES
-import sys
-from os.path import join
-
-# PARAMETER FILE
-sys.path.append("config/")
-import parameters
-
-# Path to pipeline main directory directories
-paths = parameters.WorkFlowPaths()
-progs = parameters.Progs()
-data = parameters.Data()
-
 localrules: find_insertion_size, set_user_defined_header, add_header_to_bed, AnnotSV, final_xml_file
 
 rule find_insertion_size:
@@ -130,7 +117,7 @@ rule AnnotSV:
     output:
         temp("{sample}.annotsv.tsv")
     params:
-        annotsv = progs.AnnotSV
+        annotsv = caller.AnnotSV
     shell:
         "{params.annotsv}/bin/AnnotSV -SVinputFile {input} -outputFile {output} -outputDir {wildcards.sample} -svtBEDcol 4 "
         "&& mv {wildcards.sample}/{output} . "

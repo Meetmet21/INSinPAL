@@ -193,5 +193,4 @@ dependencies:
       - polars==0.20.31
       - pyfaidx==0.8.1.1
       - tqdm==4.66.4
-      - variantconvert==2.0.1
 prefix: /home/mesehir/miniconda3/envs/INSinPAL
