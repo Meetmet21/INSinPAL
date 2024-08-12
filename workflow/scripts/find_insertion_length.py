@@ -31,6 +31,8 @@ bed = pd.read_csv(str(snakemake.input.bed), delimiter="\t", header=None,
                   names=["chr","start","stop","sv_type","len","MEI","source"])
 # Replace all equals by chr name
 bed.loc[bed["source"] == "=", "source"] = bed.chr
+# Source from int to str
+bed["source"] = bed["source"].astype(str)
 
 # FUNCTIONS
 
