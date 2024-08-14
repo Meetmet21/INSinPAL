@@ -45,18 +45,6 @@ class Progs:
         self.basil = join(self.path_Progs_dir, self.basil_dir, self.basil_version, self.basil_sif)
         self.filtering_basil = "/opt/anise_basil/scripts/filter_basil.py"
 
-        # Path to SvABA. Not retained after benchmarking with HG002 SV gold set.
-        self.svaba_version = "1.2.0"
-        self.svaba_sif = "SvABA.sif"
-        self.svaba_dir = "SvABA"
-        self.svaba = join(self.path_Progs_dir, self.svaba_dir, self.svaba_version, self.svaba_sif)
-
-        # Path to iPRIns. Idem.
-        self.iprins_version = "1.1.0"
-        self.iprins_sif = "iprins.sif"
-        self.iprins_dir = "iPRIns"
-        self.iprins = join(self.path_Progs_dir, self.iprins_dir, self.iprins_version, self.iprins_sif)
-
         # Path to Manta.
         # The binary distribution can be retrieved here: https://github.com/Illumina/manta.
         self.manta_version = "1.6.0"
@@ -78,7 +66,7 @@ class Progs:
         # Path to AnnotSV to annotate Insertions.
         self.AnnotSV_version = "3.4"
         self.AnnotSV_dir = "AnnotSV"
-        self.AnnotSV = join(self.path_Progs_dir, self.AnnotSV_dir, self.AnnotSV_version, "AnnotSV-3.4.2")
+        self.AnnotSV = join(self.path_Progs_dir, self.AnnotSV_dir, self.AnnotSV_version, self.AnnotSV_dir, "bin/AnnotSV")
 
 
 class Data:
