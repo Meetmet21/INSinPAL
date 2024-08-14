@@ -1,5 +1,2 @@
----
-# Samples ID as key and Samples BAM path as value in Samples dictionnary.
-# Each nested dictionnary in Samples correspond to one sample to analyze.
 samples:
   sample_id: sample_path
