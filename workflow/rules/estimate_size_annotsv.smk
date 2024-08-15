@@ -119,7 +119,7 @@ rule AnnotSV:
     params:
         annotsv = caller.AnnotSV
     shell:
-        "{params.annotsv}/bin/AnnotSV -SVinputFile {input} -outputFile {output} -outputDir {wildcards.sample} -svtBEDcol 4 "
+        "{params.annotsv} -SVinputFile {input} -outputFile {output} -outputDir {wildcards.sample} -svtBEDcol 4 "
         "&& mv {wildcards.sample}/{output} . "
         "&& rm -rf {wildcards.sample}/"
 
